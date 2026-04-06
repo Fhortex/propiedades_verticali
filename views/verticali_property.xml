@@ -1,0 +1,975 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_verticali_property_form">
+            <field name="model">verticali.property</field>
+            <field name="arch" type="xml">
+                <form duplicate="false" delete="false">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_images" type="object" class="oe_stat_button" icon="fa-paperclip">
+                                <field name="image_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="is_owner" invisible="1"/>
+                                <field name="property_id" widget="selection" placeholder="Tipo de propiedad"/>
+                                <field name="title" placeholder="Ej: Departamento en Col. Roma Norte"/>
+                                <field name="land_use_id" placeholder="Seleccione uso de suelo"/>
+                                <field name="description" placeholder="Descripción detallada de la propiedad..."/>
+                                <field name="type_ope" placeholder="Seleccione tipo de operación"/>
+                                <label for="price" class="o_label_inline"/>
+                                <div class="oe_inline">
+                                    <div class="row pl-0 ml-0">
+                                        <div class="col-9 pl-0">
+                                            <field name="price" oe_inline="1" placeholder="0.00"/>
+                                        </div>
+                                        <div class="col-3 pl-1">
+                                            <field name="currency_id" oe_inline="1" widget="selection"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <field name="availability_id" widget="selection" placeholder="Disponibilidad"/>
+                                <field name="status_id" widget="selection" placeholder="Status"/>
+                                <field name="investment_property"/>
+                                <label for="maintenance_cost" class="o_label_inline"/>
+                                <div class="oe_inline">
+                                    <div class="row pl-0 ml-0">
+                                        <div class="col-9 pl-0">
+                                            <field name="maintenance_cost" oe_inline="1" placeholder="0.00"/>
+                                        </div>
+                                        <div class="col-3 pl-1">
+                                            <field name="maintenance_currency_id" oe_inline="1" widget="selection"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </group>
+                            <group>
+                                <field name="commission_share_id" placeholder="Seleccione..."/>
+                                <field name="bedrooms" placeholder="0"/>
+                                <field name="bathrooms" placeholder="0"/>
+                                <field name="half_baths" placeholder="0"/>
+                                <field name="parking_lot" placeholder="0"/>
+                                <label for="constructions" class="o_label_inline"/>
+                                <div class="o_field_with_text">
+                                    <field name="constructions" class="oe_inline" placeholder="0.00"/>
+                                    <span class="o_field_text ml-1">m²</span>
+                                </div>
+                                <label for="lans" class="o_label_inline"/>
+                                <div class="oe_inline">
+                                    <div class="d-flex align-items-center">
+                                        <field name="lans" class="flex-grow-1 mr-1" placeholder="0.00"/>
+                                        <field name="lans_uom_id" style="width: 80px;" widget="selection"/>
+                                    </div>
+                                </div>
+                                <label for="along_terrain" class="o_label_inline"/>
+                                <div class="o_field_with_text">
+                                    <field name="along_terrain" class="oe_inline" placeholder="0.00"/>
+                                    <span class="o_field_text ml-1">m</span>
+                                </div>
+                                <label for="front_of_terrain" class="o_label_inline"/>
+                                <div class="o_field_with_text">
+                                    <field name="front_of_terrain" class="oe_inline" placeholder="0.00"/>
+                                    <span class="o_field_text ml-1">m</span>
+                                </div>
+                                <field name="id_eb" placeholder="ID de Easy Broker"/>
+                                <field name="id_marketplace" placeholder="ID Marketplace"/>
+                                <field name="available" placeholder="dd/mm/aaaa"/>
+                                <field name="private_description" placeholder="Notas internas..."/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="property_characteristics" string="Caracteristicas de la propiedad">
+                                <group string="Servicios" name="property_characteristics_services"></group>
+                                <group string="Tipo de entrega" name="property_characteristics_delivery_time"></group>
+                                <group string="Atributos" name="property_characteristics_attributes"></group>
+                            </page>
+                            <page name="development_characteristics" string="Caracteristicas del desarrollo">
+                                <group string="Servicios" name="development_characteristics_services"></group>
+                                <group string="Atributos" name="development_characteristics_attributes"></group>
+                                <group string="Amenidades" name="development_characteristics_amenidades"></group>
+                            </page>
+                            <page name="promotion" string="Promoción">
+                                <div class="o_promotion_grid">
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="inmuebles24"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/inmuebles24.png" alt="Inmuebles 24"/>
+                                            <span class="o_promotion_card_name">Inmuebles 24</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="icasas"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/icasas.png" alt="Icasas"/>
+                                            <span class="o_promotion_card_name">Icasas</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="inmoxperts"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/inmoxperts.png" alt="Inmoxperts"/>
+                                            <span class="o_promotion_card_name">Inmoxperts</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="nuroa"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/nuroa.png" alt="Nuroa"/>
+                                            <span class="o_promotion_card_name">Nuroa</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="goplaceit"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/goplaceit.png" alt="GoPlaceIt"/>
+                                            <span class="o_promotion_card_name">GoPlaceIt</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="mitula"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/mitula.png" alt="Mitula"/>
+                                            <span class="o_promotion_card_name">Mitula</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="mercadolibre"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/mercadolibre.png" alt="Mercadolibre"/>
+                                            <span class="o_promotion_card_name">Mercadolibre</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="nestoria"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/nestoria.png" alt="Nestoria"/>
+                                            <span class="o_promotion_card_name">Nestoria</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="lamudi"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/lamudi.png" alt="Lamudi"/>
+                                            <span class="o_promotion_card_name">Lamudi</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="propiedades_com"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/propiedades_com.png" alt="Propiedades.com"/>
+                                            <span class="o_promotion_card_name">Propiedades.com</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="trovit"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/trovit.png" alt="Trovit"/>
+                                            <span class="o_promotion_card_name">Trovit</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="vivanuncios"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/vivanuncios.png" alt="Vivanuncios"/>
+                                            <span class="o_promotion_card_name">Vivanuncios</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="clasificados"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/clasificados.png" alt="Clasificados"/>
+                                            <span class="o_promotion_card_name">Clasificados</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="verticali"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/verticali.png" alt="Verticali"/>
+                                            <span class="o_promotion_card_name">Verticali</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                    <div class="o_promotion_card">
+                                        <input type="checkbox" name="whatsapp"/>
+                                        <div class="o_promotion_card_inner">
+                                            <img src="/property_custom/static/src/img/whatsapp.png" alt="WhatsApp"/>
+                                            <span class="o_promotion_card_name">WhatsApp</span>
+                                        </div>
+                                        <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                    </div>
+                                </div>
+                                <div class="o_promotion_extras">
+                                    <group col="4">
+                                        <field name="is_physical_advertising" widget="boolean_toggle"/>
+                                        <field name="short_description" colspan="2"/>
+                                    </group>
+                                </div>
+                            </page>
+                            <page name="location" string="Ubicación">
+                                <separator string="Desarrollo"/>
+                                <group>
+                                    <group>
+                                        <field name="development_id" placeholder="Seleccione un desarrollo..."/>
+                                        <field name="development_type_ids" widget="many2many_tags" placeholder="Tipo de desarrollo"/>
+                                    </group>
+                                    <group>
+                                        <field name="related_business_unit_ids" widget="many2many_tags" invisible="1"/>
+                                        <field name="business_unit_ids" widget="many2many_tags" domain="[('id','in',related_business_unit_ids)]" invisible="1"/>
+                                    </group>
+                                </group>
+
+                                <group>
+                                    <group string="Dirección">
+                                        <field name="country_id" invisible="1"/>
+                                        <field name="state_id" domain="[('country_id.code', '=', 'MX')]" placeholder="Seleccione el estado..."/>
+                                        <field name="zona_id" domain="[('state_id','=',state_id)]" placeholder="Seleccione el municipio..."/>
+                                        <field name="colony_id" domain="[('zona_id','=',zona_id)]" placeholder="Seleccione la colonia..."/>
+                                        <field name="colony_easybroker_id" domain="[('zona_id','=',zona_id)]" placeholder="Colonia EasyBroker"/>
+                                    </group>
+                                    <group string="Calle y número">
+                                        <field name="is_adviser" invisible="1"/>
+                                        <field name="street" placeholder="Nombre de la calle" required="is_adviser"/>
+                                        <field name="street2" placeholder="Número exterior"/>
+                                        <field name="street3" placeholder="Número interior"/>
+                                        <field name="zipcode_id" placeholder="Código postal..." readonly="1" force_save="1"/>
+                                        <field name="google_maps_url" widget="url" string="Ver en Google Maps" readonly="1"/>
+                                        <field name="longitude" readonly="1" force_save="1" groups="base.group_no_one"/>
+                                    </group>
+                                </group>
+
+                                <separator string="Mapa interactivo"/>
+                                <p class="text-muted small mb-2">
+                                    <i class="fa fa-info-circle me-1"/>
+                                    Al seleccionar una colonia o municipio, el mapa se posicionará automáticamente en la zona
+                                    y mostrará sus límites aproximados.
+                                    Haz clic en el mapa o arrastra el marcador para ubicar el predio exacto.
+                                </p>
+                                <div class="o_property_map_wrapper">
+                                    <field name="latitude" widget="property_map_widget" nolabel="1"/>
+                                </div>
+                            </page>
+                            <page name="policies" string="Políticas">
+                                <group>
+                                    <group>
+                                        <field name="pet_id"/>
+                                        <field name="smoking_id"/>
+                                        <field name="payment_method_id"/>
+                                        <field name="invoice_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="giro_id"/>
+                                        <field name="grace_time"/>
+                                        <field name="payment_condition"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="conditions" string="Condiciones">
+                                <group>
+                                    <group>
+                                        <field name="warranty_ids" widget="many2many_tags"/>
+                                        <field name="deposit_id"/>
+                                        <field name="minimum_term_id"/>
+                                        <field name="customer_profile_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="type_of_training_id"/>
+                                        <field name="exclusive_time_id"/>
+                                        <field name="commision_type_type" invisible="1"/>
+                                        <label for="commision_type" class="o_label_inline"/>
+                                        <div class="oe_inline">
+                                            <field name="commision_type" domain="['|',('type_ope','=',type_ope),('type_ope','=',False)]" class="mr-1 oe_inline" widget="selection"/>
+                                            <field name="commision_percentage" class="ml-1 oe_inline" placeholder="% del Precio total" invisible="commision_type_type!='percentage'"/>
+                                            <field name="commision_fixed" class="ml-1 oe_inline" placeholder="Cantidad fija" invisible="commision_type_type!='fixed'"/>
+                                            <field name="commision_currency_id" class="ml-1 oe_inline" invisible="commision_type_type!='fixed'" widget="selection"/>
+                                            <field name="commision_months" class="ml-1 oe_inline" invisible="commision_type_type!='months'"/>
+                                        </div>
+                                        <field name="comments"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="owner" string="Propietario">
+                                <group>
+                                    <group>
+                                        <field name="partner_id"/>
+                                        <field name="email" readonly="True" force_save="1"/>
+                                        <field name="phone" readonly="True" force_save="1"/>
+                                        <field name="comments_owner"/>
+                                    </group>
+                                    <group>
+                                        <field name="contact_type_ids" readonly="True" force_save="1" widget="many2many_tags" required="not partner_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                                        <field name="crm_category_id" readonly="True" force_save="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Contratos">
+                                <field name="contracts_ids">
+                                    <list string="Contratos" editable="bottom">
+                                        <field name="partner_id"/>
+                                        <field name="email"/>
+                                        <field name="phone"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                        <field name="filename" invisible="1"/>
+                                        <field name="file" filename="filename" options="{'accept': '.doc,.pdf'}"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Imágenes">
+                                <field name="image_ids" widget="property_image_dropzone" nolabel="1"/>
+                                <button name="upload_images" type="object" class="btn btn-outline-primary mt-3 mb-3" icon="fa-upload">
+                                    Subir imágenes en lote (wizard)
+                                </button>
+                                <field name="image_ids" nolabel="1">
+                                    <list string="Imágenes" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name" placeholder="Descripción de la imagen"/>
+                                        <field name="image" widget="image" options="{'size': [150, 150]}"/>
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Accesos" groups="sales_team.group_sale_manager">
+                                <group>
+                                    <group string="Usuarios con acceso">
+                                        </group>
+                                    <group string="Grupos con acceso">
+                                        </group>
+                                </group>
+                                <p class="text-muted mt-2">
+                                    Nota: Los usuarios siempre pueden ver las propiedades que crearon o donde son asesores. Añade aquí usuarios o grupos adicionales para darles acceso a esta propiedad.
+                                </p>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter" invisible="not is_owner"/>
+                    </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_verticali_property_owner_detail_form">
+            <field name="model">verticali.property</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false" duplicate="false" delete="false">
+                    <header>
+                        <button name="action_send" class="btn btn-primary" string="Enviar propiedad" type="object" invisible="is_owner!=True"/>
+                        <button name="action_change" context="{'status': True}" string="Publicada" type="object" invisible="is_owner!=True"/>
+                        <button name="action_change" context="{'available': True}" string="Disponible" type="object" invisible="is_owner!=True"/>
+                        <button name="action_change" context="{'adviser': True}" string="Vendedor" type="object" invisible="is_owner!=True"/>
+                        <button name="action_edit" string="Editar" type="object" invisible="is_owner!=True"/>
+                        <button name="action_duplicate" string="Duplicar" type="object" invisible="is_owner!=True"/>
+                        <button name="action_share" string="Compartir" type="object"/>
+                    </header>
+                    <sheet>
+                        <div class="row mb-4">
+                            <div class="col-1"/>
+                            <div class="col-3 pl-1 p-0 m-0">
+                                <field name="image" widget="image" class="img-fluid" style="max-width:400px; max-height:400px;"/>
+                            </div>
+                            <div class="col-4">
+                                <field name="is_owner" invisible="1"/>
+                                <field name="displayid" readonly="True" class="p-0 m-0"/>
+                                <h5><field name="title" readonly="True" class="p-0 m-0"/></h5>
+                                <strong><field name="currency_id" readonly="True"/>
+                                    <field name="price" readonly="True"/></strong>
+                                En
+                                <field name="type_ope" readonly="True"/>
+                                <div class="m-1">
+                                    <i class="fa fa-bed mr-1"/>
+                                    <span><field name="bedrooms" readonly="True"/></span>
+                                    <i class="fa fa-bath ml-2 mr-1"/>
+                                    <span><field name="bathrooms" readonly="True"/></span>
+                                    <i class="fa fa-car ml-2 mr-1"/>
+                                    <span><field name="parking_lot" readonly="True"/></span>
+                                    <i class="fa fa-cube ml-2 mr-1"/>
+                                    <span><field name="constructions" readonly="True"/></span>
+                                    <i class="fa fa-expand ml-2 mr-1"/>
+                                    <span><field name="lans" readonly="True"/>
+                                        <field name="lans_uom_id" readonly="True" class="ml-1"/></span>
+                                </div>
+                                <i class="fa fa-phone"/><span><field name="phone_adviser" readonly="True"/><br/></span>
+                                <i class="fa fa-key"/><span><field name="adviser_id" readonly="True"/></span><br/>
+                            </div>
+                            <div class="col-4">
+                                <span>Creada el:
+                                    <field name="create_date" readonly="True"/></span><br/>
+                                <span invisible="is_owner!=True">Asignada el:
+                                    <field name="assignment_date" readonly="True"/></span><br/>
+                                <span invisible="is_owner!=True">Descripción privada:</span><br/>
+                                <field invisible="is_owner!=True" name="private_description" readonly="True" class="mb-0 pb-0"/>
+                                <strong>Días de captación:
+                                </strong><field name="days_of_recruitment" readonly="True"/><br/>
+                                <strong>Estatus:
+                                </strong><field name="status_id" readonly="True"/><br/>
+                                <strong>Disponibilidad:
+                                </strong><field name="availability_id" readonly="True"/><br/>
+                                <strong>Comparte comisión:
+                                </strong><field name="commission_share_id" readonly="True"/><br/>
+                                <strong>Mantenimiento:
+                                </strong><field name="maintenance_cost" readonly="True"/><br/>
+                            </div>
+                        </div>
+                        <notebook>
+                            <page name="detail" string="Detalle">
+                                <div class="row">
+                                    <div class="col">
+                                        <field name="image_ids" mode="kanban"> <kanban limit="6">
+                                                <field name="id"/>
+                                                <field name="image"/>
+                                                <templates>
+                                                    <t t-name="kanban-box">
+                                                        <div class="border-0 m-0 p-0">
+                                                            <div class="o_kanban_image border-0 m-0 p-0" style="width: 100%;">
+                                                                <img alt="Imagen" class="m-0 p-2" t-if="record.image.raw_value" t-att-src="kanban_image('verticali.property.image', 'image', record.id.raw_value)" style="width: 100%;height: auto;max-height:200px"/>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+                                                </templates>
+                                            </kanban>
+                                        </field>
+                                    </div>
+                                </div>
+                                <div class="row mt-4 mb-4">
+                                    <div class="col-2"/>
+                                    <div class="col-10">
+                                        <strong>Descripción</strong>
+                                        <field name="description" readonly="True"/>
+                                    </div>
+                                </div>
+                                <notebook>
+                                    <page name="property_characteristics" string="Caracteristicas de la propiedad">
+                                        <group string="Servicios" name="property_characteristics_services"></group>
+                                        <group string="Tipo de entrega" name="property_characteristics_delivery_time"></group>
+                                        <group string="Atributos" name="property_characteristics_attributes"></group>
+                                    </page>
+                                    <page name="development_characteristics" string="Caracteristicas del desarrollo">
+                                        <group string="Servicios" name="development_characteristics_services"></group>
+                                        <group string="Atributos" name="development_characteristics_attributes"></group>
+                                        <group string="Amenidades" name="development_characteristics_amenidades"></group>
+                                    </page>
+                                    <page name="promotion" string="Promoción">
+                                        <div class="o_promotion_grid">
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="inmuebles24"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/inmuebles24.png" alt="Inmuebles 24"/>
+                                                    <span class="o_promotion_card_name">Inmuebles 24</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="icasas"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/icasas.png" alt="Icasas"/>
+                                                    <span class="o_promotion_card_name">Icasas</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="inmoxperts"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/inmoxperts.png" alt="Inmoxperts"/>
+                                                    <span class="o_promotion_card_name">Inmoxperts</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="nuroa"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/nuroa.png" alt="Nuroa"/>
+                                                    <span class="o_promotion_card_name">Nuroa</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="goplaceit"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/goplaceit.png" alt="GoPlaceIt"/>
+                                                    <span class="o_promotion_card_name">GoPlaceIt</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="mitula"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/mitula.png" alt="Mitula"/>
+                                                    <span class="o_promotion_card_name">Mitula</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="mercadolibre"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/mercadolibre.png" alt="Mercadolibre"/>
+                                                    <span class="o_promotion_card_name">Mercadolibre</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="nestoria"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/nestoria.png" alt="Nestoria"/>
+                                                    <span class="o_promotion_card_name">Nestoria</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="lamudi"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/lamudi.png" alt="Lamudi"/>
+                                                    <span class="o_promotion_card_name">Lamudi</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="propiedades_com"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/propiedades_com.png" alt="Propiedades.com"/>
+                                                    <span class="o_promotion_card_name">Propiedades.com</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="trovit"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/trovit.png" alt="Trovit"/>
+                                                    <span class="o_promotion_card_name">Trovit</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="vivanuncios"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/vivanuncios.png" alt="Vivanuncios"/>
+                                                    <span class="o_promotion_card_name">Vivanuncios</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="clasificados"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/clasificados.png" alt="Clasificados"/>
+                                                    <span class="o_promotion_card_name">Clasificados</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="verticali"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/verticali.png" alt="Verticali"/>
+                                                    <span class="o_promotion_card_name">Verticali</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                            <div class="o_promotion_card">
+                                                <input type="checkbox" name="whatsapp"/>
+                                                <div class="o_promotion_card_inner">
+                                                    <img src="/property_custom/static/src/img/whatsapp.png" alt="WhatsApp"/>
+                                                    <span class="o_promotion_card_name">WhatsApp</span>
+                                                </div>
+                                                <span class="o_promotion_check_badge"><i class="fa fa-check"/></span>
+                                            </div>
+                                        </div>
+                                        <div class="o_promotion_extras">
+                                            <group col="4">
+                                                <field name="is_physical_advertising" widget="boolean_toggle"/>
+                                                <field name="short_description" colspan="2"/>
+                                            </group>
+                                        </div>
+                                    </page>
+                                    <page name="location" string="Ubicación">
+                                        <group>
+                                            <group>
+                                                <field name="development_id"/>
+                                                <field name="related_business_unit_ids" widget="many2many_tags" invisible="1"/>
+                                                <field name="business_unit_ids" widget="many2many_tags" domain="[('id','in',related_business_unit_ids)]" invisible="1"/>
+                                                <field name="development_type_ids" widget="many2many_tags"/>
+                                            </group>
+                                            <group>
+                                                <field name="country_id" invisible="1"/>
+                                                <field name="state_id" domain="[('country_id.code', '=', 'MX')]"/>
+                                                <field name="zona_id" domain="[('state_id','=',state_id)]"/>
+                                                <field name="colony_id" domain="[('zona_id','=',zona_id)]"/>
+                                                <label for="street" class="o_label_inline"/>
+                                                <div class="oe_inline">
+                                                    <div class="row pl-0 ml-0">
+                                                        <div class="col-4 pl-0 pr-0 m-0">
+                                                            <field name="is_adviser" invisible="1"/>
+                                                            <field name="street" oe_inline="1" placeholder="Calle" required="is_adviser"/>
+                                                        </div>
+                                                        <div class="col-4 pl-0 pr-0 m-0">
+                                                            <field name="street2" oe_inline="1" placeholder="#"/>
+                                                        </div>
+                                                        <div class="col-4 pl-0 m-0">
+                                                            <field name="street3" oe_inline="1" placeholder="# Interior"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <field name="zipcode_id" readonly="1" force_save="1"/>
+                                                <button name="create_locations" type="object" class="btn-primary" string="Refrescar colonias"/>
+                                                <field name="colony_easybroker_id" domain="[('zona_id','=',zona_id)]"/>
+                                            </group>
+                                        </group>
+                                    </page>
+                                    <page name="policies" string="Políticas">
+                                        <group>
+                                            <group>
+                                                <field name="pet_id"/>
+                                                <field name="smoking_id"/>
+                                                <field name="payment_method_id"/>
+                                                <field name="invoice_id"/>
+                                            </group>
+                                            <group>
+                                                <field name="giro_id"/>
+                                                <field name="grace_time"/>
+                                                <field name="payment_condition"/>
+                                            </group>
+                                        </group>
+                                    </page>
+                                    <page name="conditions" string="Condiciones">
+                                        <group>
+                                            <group>
+                                                <field name="warranty_ids" widget="many2many_tags"/>
+                                                <field name="deposit_id"/>
+                                                <field name="minimum_term_id"/>
+                                                <field name="customer_profile_id"/>
+                                            </group>
+                                            <group>
+                                                <field name="type_of_training_id"/>
+                                                <field name="exclusive_time_id"/>
+                                                <field name="commision_type_type" invisible="1"/>
+                                                <label for="commision_type" class="o_label_inline"/>
+                                                <div class="oe_inline">
+                                                    <field name="commision_type" domain="['|',('type_ope','=',type_ope),('type_ope','=',False)]" class="oe_inline ml-0" widget="selection"/>
+                                                    <field name="commision_percentage" class="ml-0 oe_inline" placeholder="% del Precio total" invisible="commision_type_type!='percentage'"/>
+                                                    <field name="commision_fixed" class="ml-0 oe_inline" placeholder="Cantidad fija" invisible="commision_type_type!='fixed'"/>
+                                                    <field name="commision_currency_id" class="ml-0 oe_inline" invisible="commision_type_type!='fixed'" widget="selection"/>
+                                                    <field name="commision_months" class="ml-0 oe_inline" invisible="commision_type_type!='months'"/>
+                                                </div>
+                                                <field name="comments"/>
+                                            </group>
+                                        </group>
+                                    </page>
+                                    <page name="owner" string="Propietario">
+                                        <group>
+                                            <group>
+                                                <field name="partner_id"/>
+                                                <field name="email" readonly="True" force_save="1"/>
+                                                <field name="phone" readonly="True" force_save="1"/>
+                                                <field name="comments_owner"/>
+                                            </group>
+                                            <group>
+                                                <field name="contact_type_ids" readonly="True" force_save="1" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
+                                                <field name="crm_category_id" readonly="True" force_save="1"/>
+                                            </group>
+                                        </group>
+                                    </page>
+                                    <page string="Contratos">
+                                        <field name="contracts_ids">
+                                            <list string="Contratos">
+                                                <field name="partner_id"/>
+                                                <field name="email"/>
+                                                <field name="phone"/>
+                                                <field name="date_from"/>
+                                                <field name="date_to"/>
+                                                <field name="filename" invisible="1"/>
+                                                <field name="file" filename="filename" options="{'accept': '.doc,.pdf'}"/>
+                                            </list>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </page>
+                            <page string="Clientes interesados" invisible="is_owner!=True">
+                                <field name="crm_ids" readonly="1">
+                                    <list>
+                                        <field name="create_date"/>
+                                        <field name="partner_id"/>
+                                        <field name="contact_type_id"/>
+                                        <field name="email_from"/>
+                                        <field name="phone"/>
+                                        <field name="priority"/>
+                                        <field name="activity_summary"/>
+                                        <field
+                                        name="stage_id"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter" invisible="not is_owner"/>
+                        </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_verticali_property_detail_form">
+            <field name="model">verticali.property</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false" duplicate="false" delete="false">
+                    <header>
+                        <button name="action_share" string="Compartir" type="object"/>
+                    </header>
+                    <sheet>
+                        <div class="row mb-4">
+                            <div class="col-1"/>
+                            <div class="col-3 pl-1 p-0 m-0">
+                                <field name="image" widget="image" class="img-fluid" style="max-width:400px; max-height:400px;"/>
+                            </div>
+                            <div class="col-4">
+                                <field name="is_owner" invisible="1"/>
+                                <field name="displayid" readonly="True" class="p-0 m-0"/>
+                                <h5><field name="title" readonly="True" class="p-0 m-0"/></h5>
+                                <strong><field name="currency_id" readonly="True"/>
+                                    <field name="price" readonly="True"/></strong>
+                                En
+                                <field name="type_ope" readonly="True"/>
+                                <div class="m-1">
+                                    <i class="fa fa-bed mr-1"/>
+                                    <span><field name="bedrooms" readonly="True"/></span>
+                                    <i class="fa fa-bath ml-2 mr-1"/>
+                                    <span><field name="bathrooms" readonly="True"/></span>
+                                    <i class="fa fa-car ml-2 mr-1"/>
+                                    <span><field name="parking_lot" readonly="True"/></span>
+                                    <i class="fa fa-cube ml-2 mr-1"/>
+                                    <span><field name="constructions" readonly="True"/></span>
+                                    <i class="fa fa-expand ml-2 mr-1"/>
+                                    <span><field name="lans" readonly="True"/>
+                                        <field name="lans_uom_id" readonly="True" class="ml-1"/></span>
+                                </div>
+                                <field name="show_adviser" invisible="1"/>
+                                <i class="fa fa-phone"/>
+                                <span invisible="show_adviser"><field name="phone" readonly="True"/><br/></span>
+                                <span invisible="not show_adviser"><field name="phone_adviser" readonly="True"/>
+                                    <br/></span>
+                                <i class="fa fa-key"/>
+                                <span invisible="show_adviser"><field name="partner_id" readonly="True"/></span>
+                                <span invisible="not show_adviser"><field name="adviser_id" readonly="True"/></span>
+                                <br/>
+                            </div>
+                            <div class="col-4">
+                                <span>Creada el:
+                                    <field name="create_date" readonly="True"/></span><br/>
+                                <span invisible="is_owner!=True">Asignada el:
+                                    <field name="assignment_date" readonly="True"/></span><br/>
+                                <span invisible="is_owner!=True">Descripción privada:</span><br/>
+                                <field invisible="is_owner!=True" name="private_description" readonly="True" class="mb-0 pb-0"/>
+                                <strong>Días de captación:
+                                </strong><field name="days_of_recruitment" readonly="True"/><br/>
+                                <strong>Estatus:
+                                </strong><field name="status_id" readonly="True"/><br/>
+                                <strong>Disponibilidad:
+                                </strong><field name="availability_id" readonly="True"/><br/>
+                                <strong>Comparte comisión:
+                                </strong><field name="commission_share_id" readonly="True"/><br/>
+                                <strong>Mantenimiento:
+                                </strong><field name="maintenance_cost" readonly="True"/><br/>
+                            </div>
+                        </div>
+                        <notebook>
+                            <page name="detail" string="Detalle">
+                                <div class="row">
+                                    <div class="col">
+                                        <field name="image_ids" mode="kanban"> <kanban limit="6">
+                                                <field name="id"/>
+                                                <field name="image"/>
+                                                <templates>
+                                                    <t t-name="kanban-box">
+                                                        <div class="border-0 m-0 p-0">
+                                                            <div class="o_kanban_image border-0 m-0 p-0" style="width: 100%;">
+                                                                <img alt="Imagen" class="m-0 p-2" t-if="record.image.raw_value" t-att-src="kanban_image('verticali.property.image', 'image', record.id.raw_value)" style="width: 100%;height: auto;max-height:200px"/>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+                                                </templates>
+                                            </kanban>
+                                        </field>
+                                        </div>
+                                </div>
+                                <div class="row mt-4 mb-4">
+                                    <div class="col-2"/>
+                                    <div class="col-10">
+                                        <strong>Descripción</strong>
+                                        <field name="description" readonly="True"/>
+                                    </div>
+                                </div>
+                                <notebook>
+                                    <page name="property_characteristics" string="Caracteristicas de la propiedad">
+                                        <group string="Servicios" name="property_characteristics_services"></group>
+                                        <group string="Tipo de entrega" name="property_characteristics_delivery_time"></group>
+                                        <group string="Atributos" name="property_characteristics_attributes"></group>
+                                    </page>
+                                    <page name="development_characteristics" string="Caracteristicas del desarrollo">
+                                        <group string="Servicios" name="development_characteristics_services"></group>
+                                        <group string="Atributos" name="development_characteristics_attributes"></group>
+                                        <group string="Amenidades" name="development_characteristics_amenidades"></group>
+                                    </page>
+                                    <page name="location" string="Ubicación">
+                                        <group>
+                                            <group>
+                                                <field name="country_id" invisible="1"/>
+                                                <field name="state_id" domain="[('country_id.code', '=', 'MX')]"/>
+                                                <field name="zona_id"/>
+                                                <field name="colony_id"/>
+                                                <field name="zipcode_id" readonly="1" force_save="1"/>
+                                            </group>
+                                        </group>
+                                    </page>
+                                    <page name="policies" string="Políticas">
+                                        <group>
+                                            <group>
+                                                <field name="pet_id"/>
+                                                <field name="smoking_id"/>
+                                                <field name="payment_method_id"/>
+                                                <field name="invoice_id"/>
+                                            </group>
+                                            <group>
+                                                <field name="giro_id"/>
+                                                <field name="grace_time"/>
+                                                <field name="payment_condition"/>
+                                            </group>
+                                        </group>
+                                    </page>
+                                    <page name="conditions" string="Condiciones">
+                                        <group>
+                                            <group>
+                                                <field name="warranty_ids" widget="many2many_tags"/>
+                                                <field name="deposit_id"/>
+                                                <field name="minimum_term_id"/>
+                                                <field name="customer_profile_id"/>
+                                            </group>
+                                            <group>
+                                                <field name="type_of_training_id"/>
+                                                <field name="exclusive_time_id"/>
+                                                <field name="commision_type_type" invisible="1"/>
+                                                <label for="commision_type" class="o_label_inline"/>
+                                                <div class="oe_inline">
+                                                    <field name="commision_type" domain="['|',('type_ope','=',type_ope),('type_ope','=',False)]" class="oe_inline ml-0" widget="selection"/>
+                                                    <field name="commision_percentage" class="ml-0 oe_inline" placeholder="% del Precio total" invisible="commision_type_type!='percentage'"/>
+                                                    <field name="commision_fixed" class="ml-0 oe_inline" placeholder="Cantidad fija" invisible="commision_type_type!='fixed'"/>
+                                                    <field name="commision_currency_id" class="ml-0 oe_inline" invisible="commision_type_type!='fixed'" widget="selection"/>
+                                                    <field name="commision_months" class="ml-0 oe_inline" invisible="commision_type_type!='months'"/>
+                                                </div>
+                                                <field name="comments"/>
+                                            </group>
+                                        </group>
+                                    </page>
+                                </notebook>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_verticali_property_tree">
+            <field name="model">verticali.property</field>
+            <field name="arch" type="xml">
+                <list string="Propiedades" editable="bottom">
+                    <field name="adviser_id"/>
+                    <field name="id_eb"/>
+                    <field name="id_marketplace"/>
+                    <field name="title"/>
+                    <field name="property_id"/>
+                    <field name="type_ope"/>
+                    <field name="zona_id"/>
+                    <field name="state_id"/>
+                    <field name="price"/>
+                    <field name="url"/>
+                </list>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_verticali_property_image_tree">
+            <field name="model">verticali.property.image</field>
+            <field name="arch" type="xml">
+                <list string="Imágenes">
+                    <field name="sequence" widget="handle"/>
+                    <field
+                    name="image" string="Imagen" widget="image" options="{'size': [100, 100]}"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="verticali_property_image_action" model="ir.actions.act_window">
+            <field name="name">Imágenes</field>
+            <field name="res_model">verticali.property.image</field>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="view_verticali_property_image_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Agregar una imagen
+                </p>
+            </field>
+        </record>
+
+        <record id="verticali_property_action" model="ir.actions.act_window">
+            <field name="name">Propiedades</field>
+            <field name="res_model">verticali.property</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_verticali_property_form"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Agregar una propiedad
+                </p>
+            </field>
+        </record>
+
+        <record id="verticali_property_detail_action" model="ir.actions.act_window">
+            <field name="name">Detalle de propiedad</field>
+            <field name="res_model">verticali.property</field>
+            <field name="view_id" ref="view_verticali_property_detail_form"/>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="verticali_property_owner_detail_action" model="ir.actions.act_window">
+            <field name="name">Detalle de propiedad</field>
+            <field name="res_model">verticali.property</field>
+            <field name="view_id" ref="view_verticali_property_owner_detail_form"/>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="action_property" model="ir.actions.client">
+            <field name="name">Mis propiedades</field>
+            <field name="tag">property_custom.web_property</field>
+            <field name="context">{'property': 1}</field>
+        </record>
+
+        <record id="action_property_verticali" model="ir.actions.client">
+            <field name="name">Propiedades verticali</field>
+            <field name="tag">property_custom.web_property</field>
+            <field name="context">{'property': 2}</field>
+        </record>
+
+        <record id="action_property_bolsa" model="ir.actions.client">
+            <field name="name">Bolsa inmobiliaria</field>
+            <field name="tag">property_custom.web_property</field>
+            <field name="context">{'property': 3}</field>
+        </record>
+
+        <menuitem id="menu_verticali_property_act" name="Propiedades" sequence="10" web_icon="property_custom,static/description/icon.png"/>
+
+        <menuitem parent="menu_verticali_property_act" id="menu_my_property" sequence="5" name="Mis propiedades" action="action_property"/>
+
+        <menuitem parent="menu_verticali_property_act" id="menu_verticali_property" sequence="10" name="Propiedades verticali" action="action_property_verticali"/>
+
+        <menuitem parent="menu_verticali_property_act" id="menu_verticali_property_bolsa" sequence="15" name="Bolsa inmobiliaria" action="action_property_bolsa"/>
+
+    </data>
+
+
+</odoo>

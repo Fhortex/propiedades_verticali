@@ -1,0 +1,42 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_property_image_preview">
+      <field name="model">property.image.preview</field>
+      <field name="arch" type="xml">
+        <form>
+          <field name="property_id" invisible="1"/>
+            <field name="image_ids" mode="kanban">
+                <kanban>
+                    <field name="id"/>
+                    <field name="image"/>
+                    <templates>
+                        <t t-name="kanban-box" >
+                          <div class="border-0 m-0 p-0" style="width: 50%;">
+                            <div class="o_kanban_image border-0 m-0 p-0" style="width: 100%;">
+                                <img alt="Imagen" 
+                                      class="m-0 p-2"
+                                      t-if="record.image.raw_value" 
+                                      t-att-src="kanban_image('verticali.property.image', 'image', record.id.raw_value)"
+                                      style="width: 100%;height: auto;max-height:300px"/>
+                            </div>
+                          </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+            <footer>
+                <button string="Cerrar" class="btn-secondary" special="cancel" data-hotkey="x"/>
+            </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_property_image_preview" model="ir.actions.act_window">
+        <field name="name">Compartir propiedad</field>
+        <field name="res_model">property.image.preview</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

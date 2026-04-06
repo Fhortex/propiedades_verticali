@@ -1,0 +1,32 @@
+<odoo>
+  <data>    
+    <record model="ir.ui.view" id="view_property_giro_tree">
+      <field name="model">property.giro</field>
+      <field name="arch" type="xml">
+        <list string="Giro permitido" editable="bottom">
+          <field name="name"/>
+        </list>
+      </field>
+    </record>
+
+
+  <record id="property_giro_action" model="ir.actions.act_window">
+    <field name="name">Giro permitido</field>
+    <field name="res_model">property.giro</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="view_property_giro_tree"/>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Agregar un giro permitido
+      </p>
+    </field>
+  </record>
+    
+  <menuitem
+    id="menu_property_giro_act"
+    name="Giro permitido"
+    sequence="70"
+    parent="menu_property_config"
+    action="property_giro_action"/>
+  </data>
+</odoo>

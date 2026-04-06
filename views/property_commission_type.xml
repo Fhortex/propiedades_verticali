@@ -1,0 +1,32 @@
+<odoo>
+  <data>    
+    <record model="ir.ui.view" id="view_property_commission_type_tree">
+      <field name="model">property.development</field>
+      <field name="arch" type="xml">
+        <list string="Tipo de comisión" editable="bottom">
+          <field name="name"/>
+        </list>
+      </field>
+    </record>
+
+
+  <record id="property_commission_type_action" model="ir.actions.act_window">
+    <field name="name">Tipo de comisión</field>
+    <field name="res_model">property.development</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="view_property_commission_type_tree"/>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Agregar un desarrollo
+      </p>
+    </field>
+  </record>
+    
+  <menuitem
+    id="menu_property_commission_type_act"
+    name="Tipo de comisión"
+    sequence="70"
+    parent="menu_property_config"
+    action="property_commission_type_action"/>
+  </data>
+</odoo>

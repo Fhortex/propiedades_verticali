@@ -1,0 +1,23 @@
+<odoo>
+    <template id="mapbox_template" name="Mapbox Map Page">
+        <t t-call="website.layout">
+            <div class="container">
+                <input type="hidden" id="access_token" t-att-value="access_token"/>
+                <h2 class="text-center m-0">Selecciona la ubicación</h2>
+                <div class="row m-0">
+                    <div class="col m-0">
+                        <form method="POST" action="/property/mapbox/save" class="m-3">
+                            <input type="hidden" name="record_id" t-att-value="record.id"/>
+                            <input type="hidden" name="model" t-att-value="record._name"/>
+                            <input type="hidden" id="lat" name="lat" t-att-value="record.latitude or 0"/>
+                            <input type="hidden" id="lng" name="lng" t-att-value="record.longitude or 0"/>
+                            <br/>
+                            <button type="submit" class="btn btn-success mt-0 mb-2 float-right">Guardar ubicación</button>
+                        </form>
+                    </div>
+                </div>
+                <div id="map" style="height: 600px;"></div>
+            </div>
+        </t>
+    </template>
+</odoo>

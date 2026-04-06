@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="icp_web_api_url" model="ir.config_parameter">
+            <field name="key">web.api.url</field>
+            <field name="value">https://api.verticali.mx/api/property</field>
+        </record>
+
+    </data>
+</odoo>

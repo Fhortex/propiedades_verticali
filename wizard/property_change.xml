@@ -1,0 +1,31 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_property_change">
+      <field name="model">property.change</field>
+      <field name="arch" type="xml">
+        <form>
+            <p>Mediante este asistente usted podrá cambiar:</p>
+            <group>
+              <field name="status_id" invisible="not context.get('status', False)" widget="radio"/>
+              <field name="availability_id" invisible="not context.get('available', False)" widget="radio"/>
+              <field name="parent_id" invisible="1"/>
+              <field name="adviser_id" domain="[('parent_id','=',parent_id)]" invisible="not context.get('adviser', False)"/>
+            </group>
+            <footer>
+                <button string="Aplicar cambios" class="btn-primary" type="object" name="apply"/>
+                <button string="Cerrar" class="btn-secondary" special="cancel" data-hotkey="x"/>
+            </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_property_change" model="ir.actions.act_window">
+        <field name="name">Cambiar propiedad</field>
+        <field name="res_model">property.change</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_property_change"/>
+        <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

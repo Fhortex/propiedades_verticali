@@ -1,0 +1,38 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_property_fields_tree">
+      <field name="model">property.fields</field>
+      <field name="arch" type="xml">
+        <list string="Campos Personalizados">
+          <field name="name"/>
+          <field name="field_description"/>
+          <field name="help"/>
+          <field name="group_id" invisible="0"/>
+          <field name="field_id" invisible="0"/>
+          <field name="dev_field_id" invisible="0"/>
+          <field name="write_uid" readonly="1"/>
+          <field name="write_date" readonly="1"/>
+        </list>
+      </field>
+    </record>
+  </data>
+
+  <record id="property_fields_action" model="ir.actions.act_window">
+    <field name="name">Campos personalizados</field>
+    <field name="res_model">property.fields</field>
+    <field name="view_id" ref="view_property_fields_tree"/>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Crea campos personalizados
+      </p>
+    </field>
+  </record>
+
+  <menuitem
+    id="menu_property_fields_act"
+    name="Campos personalizados"
+    sequence="100"
+    action="property_fields_action"
+    parent="property_custom.menu_property_config"/>
+
+</odoo>

@@ -1,0 +1,315 @@
+/* Personalización de la barra de desplazamiento */
+
+/* Contenedor principal con scroll */
+.o_my_properties .row {
+    scrollbar-width: thin;  /* Firefox: barra delgada */
+    scrollbar-color: #888 #f1f1f1;  /* Firefox: color thumb y track */
+}
+
+/* Chrome, Safari, Edge */
+.o_my_properties .row::-webkit-scrollbar {
+    width: 10px;  /* Ancho de la barra */
+}
+
+.o_my_properties .row::-webkit-scrollbar-track {
+    background: #f1f1f1;  /* Color de fondo */
+    border-radius: 5px;
+}
+
+.o_my_properties .row::-webkit-scrollbar-thumb {
+    background: #888;  /* Color de la barra */
+    border-radius: 5px;
+}
+
+.o_my_properties .row::-webkit-scrollbar-thumb:hover {
+    background: #555;  /* Color al pasar el mouse */
+}
+
+/* Smooth scroll */
+.o_my_properties .row {
+    scroll-behavior: smooth;
+}
+
+/* ========================================
+   🎨 ESTILOS MUK THEME - Botones de Operación
+   ======================================== */
+
+/* Contenedor de tabs */
+#operation_tabs {
+    background: #f8f9fa;
+    padding: 6px;
+    border-radius: 12px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+    display: flex;
+    gap: 8px;
+}
+
+#operation_tabs .nav-item {
+    flex: 1;
+}
+
+/* Estilo base de los botones */
+#operation_tabs .nav-link {
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    border: none;
+    color: #6c757d;
+    background: transparent;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+/* Efecto hover */
+#operation_tabs .nav-link:hover {
+    color: #495057;
+    background: rgba(0,0,0,0.05);
+    transform: translateY(-1px);
+}
+
+/* Botón activo - Estilo azul oscuro */
+#operation_tabs .nav-link.active {
+    background: linear-gradient(135deg, #243742 0%, #2d4452 100%);
+    color: white;
+    box-shadow: 
+        0 4px 12px rgba(36, 55, 66, 0.3),
+        0 2px 6px rgba(36, 55, 66, 0.2);
+    transform: translateY(-2px);
+}
+
+#operation_tabs .nav-link.active:hover {
+    background: linear-gradient(135deg, #1a2a33 0%, #243742 100%);
+    box-shadow: 
+        0 6px 16px rgba(36, 55, 66, 0.35),
+        0 3px 8px rgba(36, 55, 66, 0.25);
+    color: white;
+}
+
+/* Efecto de ripple al hacer click */
+#operation_tabs .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+#operation_tabs .nav-link:active::before {
+    width: 200px;
+    height: 200px;
+}
+
+/* Variantes de color alternativas (opcionales) */
+#operation_tabs .nav-link[id="Venta"].active {
+    background: linear-gradient(135deg, #28a745 0%, #34ce57 100%);
+    box-shadow: 
+        0 4px 12px rgba(40, 167, 69, 0.3),
+        0 2px 6px rgba(40, 167, 69, 0.2);
+}
+
+#operation_tabs .nav-link[id="Renta"].active {
+    background: linear-gradient(135deg, #007bff 0%, #0d8bff 100%);
+    box-shadow: 
+        0 4px 12px rgba(0, 123, 255, 0.3),
+        0 2px 6px rgba(0, 123, 255, 0.2);
+}
+
+#operation_tabs .nav-link[id="Preventa"].active {
+    background: linear-gradient(135deg, #ffc107 0%, #ffcd39 100%);
+    box-shadow: 
+        0 4px 12px rgba(255, 193, 7, 0.3),
+        0 2px 6px rgba(255, 193, 7, 0.2);
+    color: #212529;
+}
+
+#operation_tabs .nav-link[id="Preventa"].active:hover {
+    color: #212529;
+}
+
+/* Animación de entrada */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#operation_tabs {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #operation_tabs {
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    #operation_tabs .nav-link {
+        width: 100%;
+    }
+}
+
+/* ========================================
+   🎨 Mejoras adicionales estilo Muk
+   ======================================== */
+
+/* Dropdowns mejorados */
+.o_property_web .dropdown-menu {
+    border: none;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
+    animation: dropdownFadeIn 0.2s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Inputs de precio */
+.o_property_web .form-control,
+.o_property_web .form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px 14px;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.o_property_web .form-control:focus,
+.o_property_web .form-select:focus {
+    border-color: #243742;
+    box-shadow: 0 0 0 4px rgba(36, 55, 66, 0.1);
+    outline: none;
+}
+
+.o_property_web .form-control::placeholder {
+    color: #adb5bd;
+    font-weight: 400;
+}
+
+/* Botón Aplicar */
+.o_property_web .btn-primary.apply {
+    background: linear-gradient(135deg, #243742 0%, #2d4452 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(36, 55, 66, 0.25);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.o_property_web .btn-primary.apply:hover {
+    background: linear-gradient(135deg, #1a2a33 0%, #243742 100%);
+    box-shadow: 0 6px 16px rgba(36, 55, 66, 0.35);
+    transform: translateY(-2px);
+}
+
+.o_property_web .btn-primary.apply:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(36, 55, 66, 0.2);
+}
+
+/* Headers dentro de dropdowns */
+.o_property_web .dropdown-menu h6 {
+    color: #495057;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+/* Checkboxes */
+.o_property_web .form-check-input {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #dee2e6;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.o_property_web .form-check-input:checked {
+    background-color: #243742;
+    border-color: #243742;
+    box-shadow: 0 2px 8px rgba(36, 55, 66, 0.3);
+}
+
+.o_property_web .form-check-input:focus {
+    border-color: #243742;
+    box-shadow: 0 0 0 4px rgba(36, 55, 66, 0.1);
+}
+
+.o_property_web .form-check-label {
+    cursor: pointer;
+    user-select: none;
+    color: #495057;
+    font-weight: 500;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+/* Botones dropdown principales */
+.o_property_web .btn-outline-secondary {
+    border: 2px solid #e9ecef;
+    color: #495057;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 16px;
+    transition: all 0.2s ease;
+}
+
+.o_property_web .btn-outline-secondary:hover {
+    background: #f8f9fa;
+    border-color: #dee2e6;
+    color: #212529;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.o_property_web .btn-outline-secondary:active,
+.o_property_web .btn-outline-secondary.show {
+    background: #243742;
+    border-color: #243742;
+    color: white;
+}
+
+/* Botón Nueva Propiedad */
+.o_property_web .btn-gradient-primary {
+    background: linear-gradient(135deg, #243742 0%, #2d4452 100%);
+    color: white;
+    border: none;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(36, 55, 66, 0.25);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.o_property_web .btn-gradient-primary:hover {
+    background: linear-gradient(135deg, #1a2a33 0%, #243742 100%);
+    box-shadow: 0 6px 16px rgba(36, 55, 66, 0.35);
+    transform: translateY(-2px);
+    color: white;
+}
+

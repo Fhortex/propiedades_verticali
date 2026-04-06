@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="property_custom.PropertyMapWidget" owl="1">
+        <div class="o_property_map_section">
+            <!-- Search Bar -->
+            <div class="input-group mb-3">
+                <span class="input-group-text bg-white border-end-0" style="border-radius: 8px 0 0 8px;">
+                    <i class="fa fa-search text-muted"></i>
+                </span>
+                <input type="text"
+                       class="form-control border-start-0"
+                       placeholder="Buscar dirección (ej: Av. Reforma 505, Ciudad de México)"
+                       t-model="state.searchQuery"
+                       t-on-keydown="onSearchKeydown"
+                       style="border-radius: 0;"/>
+                <button class="btn btn-primary"
+                        t-on-click="onSearchAddress"
+                        style="border-radius: 0 8px 8px 0;">
+                    <i class="fa fa-map-marker-alt me-1"></i> Buscar
+                </button>
+            </div>
+
+            <!-- Map Container -->
+            <div class="o_property_map_container">
+                <div t-ref="mapContainer" id="property_map" style="height: 400px; width: 100%;"></div>
+            </div>
+
+            <!-- Location Info -->
+            <div class="o_property_map_info mt-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fa fa-crosshairs text-primary me-2"></i>
+                            <span class="map-info-label me-2">Latitud:</span>
+                            <span class="map-info-value" t-esc="state.lat ? state.lat.toFixed(6) : '—'"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fa fa-crosshairs text-primary me-2"></i>
+                            <span class="map-info-label me-2">Longitud:</span>
+                            <span class="map-info-value" t-esc="state.lng ? state.lng.toFixed(6) : '—'"/>
+                        </div>
+                    </div>
+                </div>
+                <t t-if="state.address">
+                    <div class="d-flex align-items-start mt-1">
+                        <i class="fa fa-map-pin text-success me-2 mt-1"></i>
+                        <div>
+                            <span class="map-info-label">Dirección detectada:</span><br/>
+                            <span class="map-info-value" t-esc="state.address"/>
+                        </div>
+                    </div>
+                </t>
+                <t t-if="state.isLoading">
+                    <div class="d-flex align-items-center mt-2 text-muted">
+                        <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                        <span>Obteniendo datos de ubicación...</span>
+                    </div>
+                </t>
+            </div>
+
+            <p class="text-muted small mt-2 mb-0">
+                <i class="fa fa-info-circle me-1"></i>
+                Haz clic en el mapa o arrastra el marcador para seleccionar la ubicación del predio. 
+                Los datos de estado, municipio, colonia y código postal se llenarán automáticamente.
+            </p>
+        </div>
+    </t>
+</templates>

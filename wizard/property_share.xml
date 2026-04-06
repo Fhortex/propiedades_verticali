@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_property_share">
+      <field name="model">property.share</field>
+      <field name="arch" type="xml">
+        <form>
+            <p>Mediante este asistente usted podrá compartir la propiedad seleccionada.</p>
+            <group string="Compartir URL">
+              <field name="url" readonly="1" widget="CopyClipboardChar" nolabel="1"/>
+              <field name="is_owner" invisible="1"/>
+            </group>
+            <footer>
+                <button string="Crear ficha técnica" invisible="not is_owner" class="btn-primary" type="object" name="create_report"/>
+                <button string="Cerrar" class="btn-secondary" special="cancel" data-hotkey="x"/>
+            </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_property_share" model="ir.actions.act_window">
+        <field name="name">Compartir propiedad</field>
+        <field name="res_model">property.share</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_property_share"/>
+        <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

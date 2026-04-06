@@ -1,0 +1,86 @@
+<odoo>
+  <data>    
+    <record model="ir.ui.view" id="view_property_development_tree">
+      <field name="model">property.development</field>
+      <field name="arch" type="xml">
+        <list string="Desarrollo">
+          <field name="name"/>
+        </list>
+      </field>
+    </record>
+
+    <record id="property_development_view_form" model="ir.ui.view">
+      <field name="name">property.development.view.form</field>
+      <field name="model">property.development</field>
+      <field name="arch" type="xml">
+        <form string="Desarrollo">
+          <sheet>
+            <group>
+              <field name="name"/>
+            </group>
+            <notebook>
+            <page string="Ubicación">
+              <group>
+                  <group>
+                    <field name="related_business_unit_ids" widget="many2many_tags" invisible="1"/>
+                    <field name="business_unit_ids" widget="many2many_tags" domain="[('id','in',related_business_unit_ids)]" invisible="1"/>
+                    <field name="development_type_ids" widget="many2many_tags"/>
+                  </group>
+                  <group>
+                    <field name="country_id"/>
+                    <field name="state_id"/>
+                    <field name="zona_id"/>
+                    <field name="colony_id"/>
+                    <label for="street" class="o_label_inline" />
+                      <div class="oe_inline">
+                        <div class="row pl-0 ml-0">
+                            <div class="col-4 pl-0 pr-0 m-0">
+                                <field name="street" oe_inline="1" placeholder="Calle"/>
+                            </div>
+                            <div class="col-4 pl-0 pr-0 m-0">
+                                <field name="street2" oe_inline="1" placeholder="Calle 1"/>
+                            </div>
+                            <div class="col-4 pl-0 m-0">
+                                <field name="street3" oe_inline="1" placeholder="Calle 2"/>
+                            </div>
+                        </div>
+                      </div>
+                    <field name="zip"/>
+                  </group>
+              </group>
+            </page>
+            <page name="development_characteristics" string="Caracteristicas del desarrollo">
+                <group string="Servicios" name="development_characteristics_services">
+                </group>
+                <group string="Atributos" name="development_characteristics_attributes">
+                </group>
+                <group string="Amenidades" name="development_characteristics_amenidades">
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+  <record id="property_development_action" model="ir.actions.act_window">
+    <field name="name">Desarrollo</field>
+    <field name="res_model">property.development</field>
+    <field name="view_mode">list,form</field>
+    <field name="view_id" ref="view_property_development_tree"/>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Agregar un desarrollo
+      </p>
+    </field>
+  </record>
+    
+  <menuitem
+    id="menu_property_development_act"
+    name="Desarrollo"
+    sequence="70"
+    parent="menu_property_config"
+    action="property_development_action"/>
+  </data>
+</odoo>

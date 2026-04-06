@@ -1,0 +1,224 @@
+<odoo>
+    <report
+        id="property_report_without_user_report"
+        model="verticali.property"
+        string="Ficha técnica"
+        report_type="qweb-pdf"
+        name="property_custom.property_report_without_user"
+        file="property_custom.property_report_without_user"
+        print_report_name="'Ficha técnica'"
+    />
+
+    <!-- <record id="property_report_without_user_report" model="ir.actions.report">
+        <field name="binding_model_id"></field>
+    </record> -->
+    
+    <!-- Plantilla QWeb para el reporte -->
+    <template id="property_report_without_user">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <div class="page pt-1">
+                    <div class="row p-0">
+                        <div class="col">
+                            <span class="d-inline mr-2"><t t-esc="o.title"/></span>    
+                        </div>
+                        <div class="col">
+                            <span><t t-esc="o.currency_id.symbol"/><t t-esc="'{:,.0f}'.format(o.price)"/> <t t-esc="'En {}'.format(o.type_ope)"/></span>    
+                        </div>
+                    </div>
+                    
+                    <div class="row p-2">
+                        <div class="col-6">
+                        <t t-if="o.image_ids">
+                            <img t-att-src="'data:image/png;base64,' + o.image_ids[0].image.decode('utf-8')" 
+                                alt="Primera imagen" 
+                                style="max-width: 750px; max-height: 750px; width: auto; height: auto;"/>
+                        </t>
+                        </div>
+                        <div class="col-6">
+                        <div class="row">
+                            <t t-if="len(o.image_ids)>1">
+                            <img t-att-src="'data:image/png;base64,' + o.image_ids[1].image.decode('utf-8')" 
+                                alt="Primera imagen" 
+                                style="max-width: 350px; max-height:350px; width: auto; height: auto;"/>
+                            </t>
+                        </div>
+                        <div class="row">
+                            <t t-if="len(o.image_ids)>2">
+                            <img t-att-src="'data:image/png;base64,' + o.image_ids[2].image.decode('utf-8')" 
+                                alt="Primera imagen" 
+                                style="max-width: 350px; max-height: 350px; width: auto; height: auto;"/>
+                            </t>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row p-0">
+                        <div class="col-2 border p-2 text-center">
+                            <span><t t-esc="o.bedrooms"/></span><br/>
+                            <span>Recámaras</span>
+                        </div>
+                        <div class="col-2 border p-2 text-center">
+                            <span><t t-esc="o.bathrooms"/></span><br/>
+                            <span>Baños</span>
+                        </div>
+                        <div class="col-2 border p-2 text-center">
+                            <span><t t-esc="o.half_baths"/></span><br/>
+                            <span>Medios baños</span>
+                        </div>
+                        <div class="col-2 border p-2 text-center">
+                            <span><t t-esc="o.parking_lot"/></span><br/>
+                            <span>Estacionamiendo</span>
+                        </div>
+                        <div class="col-2 border p-2 text-center">
+                            <span><t t-esc="o.constructions"/> <t t-esc="'m²'"/></span><br/>
+                            <span>de construcción</span>
+                        </div>
+                        <div class="col-2 border p-2 text-center">
+                            <span><t t-esc="o.lans"/> <t t-esc="o.lans_uom_id.name"/></span><br/>
+                            <span>de terreno</span>
+                        </div>
+                        <div class="col-2 border p-2 text-center">
+                            <span><t t-esc="o.id_eb"/></span><br/>
+                            <span>ID</span>
+                        </div>
+                    </div>
+                    <div class="row p-0 pt-3 pb-2">
+                        <div class="col-6">
+                            <h4>Descripción</h4>
+                            <span><t t-esc="o.description"/></span>
+                        </div>
+                        <div class="col-6">
+                            <h4>Amenidades</h4>
+                            <div name="development_characteristics_amenidades"/>
+                        </div>
+                    </div>
+                    
+                    <div style="page-break-before: always;">
+                        <div class="row">
+                        <t t-foreach="o.image_ids" t-as="image">
+                            <div class="col-6">
+                            <img t-att-src="'data:image/png;base64,' + image.image.decode('utf-8')" 
+                                alt="Primera imagen" 
+                                style="max-width: 500px; max-height: 500px; width: auto; height: auto;"/>
+                            </div>
+                        </t>
+                        
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <report
+        id="property_report_with_user_report"
+        model="verticali.property"
+        string="Ficha técnica"
+        report_type="qweb-pdf"
+        name="property_custom.property_report_with_user"
+        file="property_custom.property_report_with_user"
+        print_report_name="'Ficha técnica'"
+    />
+
+    <!-- <record id="property_report_with_user_report" model="ir.actions.report">
+        <field name="binding_model_id"></field>
+    </record> -->
+
+    <template id="property_report_with_user">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page pt-1">
+                        <div class="row p-0">
+                            <div class="col">
+                                <span class="d-inline mr-2"><t t-esc="o.title"/></span>    
+                            </div>
+                            <div class="col">
+                                <span><t t-esc="o.currency_id.symbol"/><t t-esc="'{:,.0f}'.format(o.price)"/> <t t-esc="'En {}'.format(o.type_ope)"/></span>    
+                            </div>
+                        </div>
+                        
+                        <div class="row p-2">
+                          <div class="col-6">
+                            <t t-if="o.image_ids">
+                              <img t-att-src="'data:image/png;base64,' + o.image_ids[0].image.decode('utf-8')" 
+                                  alt="Primera imagen" 
+                                  style="max-width: 750px; max-height: 750px; width: auto; height: auto;"/>
+                            </t>
+                          </div>
+                          <div class="col-6">
+                            <div class="row">
+                              <t t-if="len(o.image_ids)>1">
+                                <img t-att-src="'data:image/png;base64,' + o.image_ids[1].image.decode('utf-8')" 
+                                    alt="Primera imagen" 
+                                    style="max-width: 350px; max-height:350px; width: auto; height: auto;"/>
+                              </t>
+                            </div>
+                            <div class="row">
+                              <t t-if="len(o.image_ids)>2">
+                                <img t-att-src="'data:image/png;base64,' + o.image_ids[2].image.decode('utf-8')" 
+                                    alt="Primera imagen" 
+                                    style="max-width: 350px; max-height: 350px; width: auto; height: auto;"/>
+                              </t>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row p-0">
+                            <div class="col-2 border p-2 text-center">
+                                <span><t t-esc="o.bedrooms"/></span><br/>
+                                <span>Recámaras</span>
+                            </div>
+                            <div class="col-2 border p-2 text-center">
+                                <span><t t-esc="o.bathrooms"/></span><br/>
+                                <span>Baños</span>
+                            </div>
+                            <div class="col-2 border p-2 text-center">
+                                <span><t t-esc="o.half_baths"/></span><br/>
+                                <span>Medios baños</span>
+                            </div>
+                            <div class="col-2 border p-2 text-center">
+                                <span><t t-esc="o.parking_lot"/></span><br/>
+                                <span>Estacionamiendo</span>
+                            </div>
+                            <div class="col-2 border p-2 text-center">
+                                <span><t t-esc="o.constructions"/> <t t-esc="'m²'"/></span><br/>
+                                <span>de construcción</span>
+                            </div>
+                            <div class="col-2 border p-2 text-center">
+                                <span><t t-esc="o.lans"/> <t t-esc="o.lans_uom_id.name"/></span><br/>
+                                <span>de terreno</span>
+                            </div>
+                            <div class="col-2 border p-2 text-center">
+                                <span><t t-esc="o.id_eb"/></span><br/>
+                                <span>ID</span>
+                            </div>
+                        </div>
+                        <div class="row p-0 pt-3 pb-2">
+                            <div class="col-6">
+                                <h4>Descripción</h4>
+                                <span><t t-esc="o.description"/></span>
+                            </div>
+                            <div class="col-6">
+                                <h4>Amenidades</h4>
+                                <div name="development_characteristics_amenidades"/>
+                            </div>
+                        </div>
+                        
+                        <div style="page-break-before: always;">
+                          <div class="row">
+                            <t t-foreach="o.image_ids" t-as="image">
+                              <div class="col-6">
+                                <img t-att-src="'data:image/png;base64,' + image.image.decode('utf-8')" 
+                                    alt="Primera imagen" 
+                                    style="max-width: 500px; max-height: 500px; width: auto; height: auto;"/>
+                              </div>
+                            </t>
+                            
+                          </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

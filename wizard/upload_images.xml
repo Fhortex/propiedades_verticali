@@ -1,0 +1,36 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_upload_images_form">
+      <field name="model">upload.images</field>
+      <field name="arch" type="xml">
+        <form>
+            <group>
+              <field name="property_id" readonly="1"/>
+            </group>
+            <separator string="Imágenes a subir"/>
+            <p class="text-muted">Agregue las imágenes que desea subir a la propiedad. Puede agregar múltiples imágenes.</p>
+            <field name="image_line_ids">
+                <list editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name" placeholder="Descripción (opcional)"/>
+                    <field name="image" widget="image" options="{'size': [128, 128]}"/>
+                </list>
+            </field>
+            <footer>
+                <button name="action_upload" string="Subir imágenes" type="object" class="btn-primary" data-hotkey="q"/>
+                <button string="Cancelar" class="btn-secondary" special="cancel" data-hotkey="x"/>
+            </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_property_update_fields" model="ir.actions.act_window">
+        <field name="name">Subir imágenes</field>
+        <field name="res_model">upload.images</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_upload_images_form"/>
+        <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

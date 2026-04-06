@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <!-- Mail template are declared in a NOUPDATE block
+         so users can freely customize/delete them -->
+    <data noupdate="1">
+        <!--Email template -->
+        <record id="email_template_contract_due_dates" model="mail.template">
+            <field name="name">Contratos: Vencimientos</field>
+            <field name="model_id" ref="property_custom.model_property_contracts"/>
+            <field name="email_from">wilfredomorenog@gmail.com</field>
+            <field name="email_to">wilfredomorenog@gmail.com</field>
+            <field name="subject">Vencimientos</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Estimado,
+
+        A continuación le hacemos llegar los contratos que vencerán en 30 días:
+
+    </p>
+</div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+    </data>
+</odoo>

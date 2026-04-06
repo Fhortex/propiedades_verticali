@@ -1,0 +1,550 @@
+/* ============================================
+   PROPERTY CUSTOM - PREMIUM FORM STYLES  
+   Odoo v19 - Verticali Properties
+   ============================================ */
+
+/* ── GENERAL FORM ENHANCEMENTS ── */
+
+/* Add subtle shadows and borders to all form inputs */
+.o_form_view .o_form_sheet .o_group .o_field_widget input.o_input,
+.o_form_view .o_form_sheet .o_group .o_field_widget .o_input,
+.o_form_view .o_form_sheet .o_group .o_field_widget select.o_input,
+.o_form_view .o_form_sheet .o_group .o_field_widget textarea.o_input {
+    border: 1px solid #ced4da !important;
+    border-radius: 6px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) inset !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+    padding: 6px 10px !important;
+    background-color: #fdfdfe !important;
+}
+
+.o_form_view .o_form_sheet .o_group .o_field_widget input.o_input:focus,
+.o_form_view .o_form_sheet .o_group .o_field_widget .o_input:focus,
+.o_form_view .o_form_sheet .o_group .o_field_widget select.o_input:focus,
+.o_form_view .o_form_sheet .o_group .o_field_widget textarea.o_input:focus {
+    border-color: #7c3aed !important;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12), 0 1px 3px rgba(0, 0, 0, 0.06) inset !important;
+    background-color: #fff !important;
+}
+
+/* Ensure padding-left so text isn't glued to the edge in char fields */
+.o_form_view input.o_input, 
+.o_form_view select.o_input {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+/* Placeholder styling */
+.o_form_view .o_form_sheet .o_field_widget input::placeholder,
+.o_form_view .o_form_sheet .o_field_widget textarea::placeholder {
+    color: #adb5bd !important;
+    font-style: italic !important;
+    font-size: 0.92em !important;
+}
+
+/* Label styling - slightly bolder */
+.o_form_view .o_form_sheet .o_form_label,
+.o_form_view .o_form_sheet .o_td_label .o_form_label {
+    font-weight: 600 !important;
+    color: #374151 !important;
+    font-size: 0.88em !important;
+    letter-spacing: 0.01em;
+}
+
+/* ── NOTEBOOK TABS STYLING ── */
+.o_form_view .o_notebook .nav-link {
+    font-weight: 500 !important;
+    color: #6b7280 !important;
+    border-radius: 8px 8px 0 0 !important;
+    transition: color 0.2s, background-color 0.2s !important;
+    padding: 8px 16px !important;
+}
+
+.o_form_view .o_notebook .nav-link.active {
+    color: #7c3aed !important;
+    border-bottom: 3px solid #7c3aed !important;
+    font-weight: 600 !important;
+    background-color: rgba(124, 58, 237, 0.04) !important;
+}
+
+.o_form_view .o_notebook .nav-link:hover:not(.active) {
+    color: #4b5563 !important;
+    background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+/* ── SECTION GROUP HEADERS ── */
+.o_form_view .o_inner_group .o_group_header {
+    font-weight: 700 !important;
+    color: #1f2937 !important;
+    border-bottom: 2px solid #e5e7eb !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 12px !important;
+}
+
+/* ── STAT BUTTONS ── */
+.o_form_view .oe_stat_button {
+    border-radius: 8px !important;
+    transition: background-color 0.2s, box-shadow 0.2s !important;
+}
+
+.o_form_view .oe_stat_button:hover {
+    background-color: rgba(124, 58, 237, 0.06) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ── MANY2ONE FIELD STYLING ── */
+.o_form_view .o_field_many2one .o_input {
+    border: 1px solid #ced4da !important;
+    border-radius: 6px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) inset !important;
+}
+
+/* ── READONLY FIELD STYLING ── */
+.o_form_view .o_field_widget.o_readonly_modifier .o_input,
+.o_form_view .o_field_widget[readonly] .o_input {
+    background-color: #f9fafb !important;
+    border: 1px dashed #d1d5db !important;
+    color: #6b7280 !important;
+}
+
+/* ── IMAGE DRAG-AND-DROP ZONE ── */
+.o_property_image_dropzone {
+    border: 2px dashed #7c3aed;
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.03), rgba(59, 130, 246, 0.03));
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+
+.o_property_image_dropzone:hover {
+    border-color: #6d28d9;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.06), rgba(59, 130, 246, 0.06));
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.1);
+}
+
+.o_property_image_dropzone.drag-over {
+    border-color: #6d28d9;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.1));
+    box-shadow: 0 8px 25px rgba(124, 58, 237, 0.15);
+    transform: scale(1.01);
+}
+
+.o_property_image_dropzone .dropzone-icon {
+    font-size: 48px;
+    color: #7c3aed;
+    margin-bottom: 12px;
+    opacity: 0.7;
+}
+
+.o_property_image_dropzone .dropzone-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 4px;
+}
+
+.o_property_image_dropzone .dropzone-hint {
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+/* ── IMAGE PREVIEW GRID ── */
+.o_property_image_preview_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.o_property_image_preview_item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    aspect-ratio: 1;
+}
+
+.o_property_image_preview_item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.o_property_image_preview_item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.o_property_image_preview_item .remove-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.o_property_image_preview_item:hover .remove-btn {
+    opacity: 1;
+}
+
+/* ── MAP WIDGET STYLING ── */
+.o_property_map_container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    margin: 12px 0;
+}
+
+.o_property_map_container #property_map {
+    height: 400px;
+    width: 100%;
+}
+
+.o_property_map_info {
+    background: linear-gradient(135deg, #f8fafc, #f0f4ff);
+    border: 1px solid #e0e7ff;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 12px;
+}
+
+.o_property_map_info .map-info-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.o_property_map_info .map-info-value {
+    color: #1f2937;
+    font-size: 0.95em;
+}
+
+/* ── PROMOTION TAB — CARD GRID ── */
+.o_promotion_grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 16px 8px;
+}
+
+.o_promotion_card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 12px 14px;
+    border: 2px solid #e5e7eb;
+    border-radius: 14px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    min-height: 110px;
+    user-select: none;
+}
+
+.o_promotion_card:hover {
+    border-color: #c4b5fd;
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.10);
+    transform: translateY(-2px);
+}
+
+/* Custom checkbox in card — visible, top-left position */
+.o_promotion_card input[type="checkbox"] {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #7c3aed;
+    z-index: 2;
+}
+
+/* Inner wrapper for image + name */
+.o_promotion_card_inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.o_promotion_card_inner img {
+    max-height: 55px;
+    max-width: 85%;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+}
+
+.o_promotion_card:hover .o_promotion_card_inner img {
+    transform: scale(1.05);
+}
+
+.o_promotion_card_name {
+    font-size: 0.78em;
+    font-weight: 600;
+    color: #6b7280;
+    text-align: center;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+/* Checkmark badge — hidden by default */
+.o_promotion_check_badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #7c3aed;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3);
+}
+
+/* CHECKED state — purple border + badge */
+.o_promotion_card:has(input:checked) {
+    border-color: #7c3aed;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.03), rgba(139, 92, 246, 0.06));
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.12);
+}
+
+.o_promotion_card:has(input:checked) .o_promotion_check_badge {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.o_promotion_card:has(input:checked) .o_promotion_card_name {
+    color: #7c3aed;
+}
+
+/* ── PROMOTION GRID — Physical advertising section ── */
+.o_promotion_extras {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* ── PROMOTION GRID RESPONSIVE ── */
+@media (max-width: 1200px) {
+    .o_promotion_grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .o_promotion_grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    .o_promotion_card {
+        min-height: 90px;
+        padding: 14px 8px 10px;
+    }
+    .o_promotion_card_inner img {
+        max-height: 42px;
+    }
+}
+
+/* ── LOCATION TAB ENHANCEMENTS ── */
+.o_property_map_wrapper {
+    width: 100%;
+    margin: 0 -15px;
+    padding: 0 15px;
+}
+
+.o_property_map_wrapper .o_property_map_section {
+    width: 100%;
+}
+
+.o_property_map_container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    margin: 8px 0;
+}
+
+.o_property_map_container #property_map {
+    height: 400px;
+    width: 100%;
+}
+
+.o_property_map_info {
+    background: linear-gradient(135deg, #f8fafc, #f0f4ff);
+    border: 1px solid #e0e7ff;
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 10px;
+}
+
+.o_property_map_info .map-info-label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.o_property_map_info .map-info-value {
+    color: #1f2937;
+    font-size: 0.95em;
+}
+
+/* ── NUEVA PROPIEDAD BUTTON — Teal/Green gradient ── */
+.btn-gradient-primary {
+    background: linear-gradient(135deg, #059669, #10b981) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    padding: 10px 24px !important;
+    box-shadow: 0 3px 10px rgba(5, 150, 105, 0.3) !important;
+    transition: all 0.3s ease !important;
+    font-size: 0.95em !important;
+    letter-spacing: 0.02em !important;
+}
+
+.btn-gradient-primary:hover {
+    background: linear-gradient(135deg, #047857, #059669) !important;
+    box-shadow: 0 5px 18px rgba(5, 150, 105, 0.4) !important;
+    transform: translateY(-2px) !important;
+    color: white !important;
+}
+
+.btn-gradient-primary:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 6px rgba(5, 150, 105, 0.3) !important;
+}
+
+/* ── IMAGE LIST IN FORM ── */
+.o_form_view .o_field_one2many .o_list_view .o_data_row td .o_field_image img {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ── FORM SHEET SHADOW ── */
+.o_form_view .o_form_sheet {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+    border-radius: 10px !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+/* ── SPINNER ── */
+.o_property_uploading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    z-index: 10;
+}
+
+.o_property_uploading .spinner-border {
+    color: #7c3aed;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+/* ── RESPONSIVE FORM LAYOUT ── */
+
+/* Make groups stack vertically on medium screens */
+@media (max-width: 1200px) {
+    .o_form_view .o_form_sheet .o_group > .o_inner_group {
+        min-width: 100% !important;
+    }
+
+    .o_property_map_container #property_map {
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .o_form_view .o_form_sheet {
+        padding: 12px !important;
+    }
+
+    .o_form_view .o_form_sheet .o_group {
+        flex-direction: column !important;
+    }
+
+    .o_form_view .o_form_sheet .o_group > .o_group,
+    .o_form_view .o_form_sheet .o_group > .o_inner_group {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+    }
+
+    .o_property_map_container #property_map {
+        height: 280px;
+    }
+
+    .o_property_image_dropzone {
+        padding: 24px 12px;
+    }
+
+    .o_property_image_dropzone .dropzone-icon {
+        font-size: 36px;
+    }
+
+    .o_property_image_dropzone .dropzone-text {
+        font-size: 14px;
+    }
+}
+
+/* ── SEPARATOR STYLING ── */
+.o_form_view .o_horizontal_separator {
+    font-weight: 700 !important;
+    color: #1f2937 !important;
+    font-size: 1em !important;
+    border-bottom: 2px solid #e5e7eb !important;
+    padding-bottom: 6px !important;
+    margin-top: 16px !important;
+    margin-bottom: 12px !important;
+}
+
+/* ── MY PROPERTIES LIST RESPONSIVE ── */
+.o_property_web {
+    overflow-x: hidden;
+}
+
+.o_property_web .o_property_card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.o_property_web .o_property_card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+

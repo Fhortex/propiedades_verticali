@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    <t t-name="property_custom.PropertyTemplate">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <div class="o_property_web container-fluid" style="max-height: 100%;overflow-y: auto;">
+            <input type="hidden" class="form-control" id="menu_action"/>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="row">
+                        <a class="btn btn-primary ml-4" id="new_property" href="/property/view/create" style="display:none;" role="button">Crear propiedad</a>
+                        <div class="dropdown ml-5 d-none d-lg-block">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="filter_ubicacion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Ubicación
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="container mt-4">
+                                    <select id="statess" style="width: 300px;" multiple="multiple"></select>
+                                    <div class="dropdown-divider mt-5"></div>
+                                    <button type="button" id="apply" class="btn btn-primary apply">Aplicar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown ml-2 d-none d-lg-block">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="status" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Estatus
+                            </button>
+                            <div class="dropdown-menu" style="width: 300px;" aria-labelledby="dropdownMenuButton">
+                                <div class="container mt-4" >
+                                    <div class="status"/>
+                                    <div class="dropdown-divider mt-5"></div>
+                                    <button type="button" id="apply" class="btn btn-primary apply">Aplicar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown ml-2 d-none d-lg-block">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="availability" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Disponibilidad
+                            </button>
+                            <div class="dropdown-menu" style="width: 300px;" aria-labelledby="dropdownMenuButton">
+                                <div class="container mt-4">
+                                    <div class="availability"/>
+                                    <div class="dropdown-divider mt-5"></div>
+                                    <button type="button" id="apply" class="btn btn-primary apply">Aplicar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown ml-2 d-none d-lg-block">
+                            <button class="btn btn-secondary dropdown-toggle operation_action" type="button" id="operation_action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Operación
+                            </button>
+                            <div class="dropdown-menu" style="width: 300px;" aria-labelledby="dropdownMenuButton">
+                                <div class="container mt-4">
+                                    <ul class="nav nav-pills m-4" id="pills-tab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link operation_actions" id="Venta" data-toggle="pill" href="#" role="tab" aria-controls="pills-home" aria-selected="true">Venta</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link operation_actions" id="Renta" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">Renta</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link operation_actions" id="Preventa" data-toggle="pill" href="#" role="tab" aria-controls="pills-contact" aria-selected="false">Preventa</a>
+                                        </li>
+                                    </ul>
+                                    <h4>Precio</h4>
+                                    <form class="mt-2">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="min_price" placeholder="Mínimo" aria-label="Mínimo" aria-describedby="basic-addon1"/>
+                                            <input type="text" class="form-control ml-2" id="max_price" placeholder="Máximo" aria-label="Máximo" aria-describedby="basic-addon1"/>
+                                            <select id="currencies" class="custom-select ml-1 currencies"></select>
+                                        </div>
+                                    </form>
+                                    <div class="dropdown-divider mt-5"></div>
+                                    <button type="button" id="apply" class="btn btn-primary apply">Aplicar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown ml-2 d-none d-lg-block">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="property_types" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Tipo de propiedad
+                            </button>
+                            <div class="dropdown-menu" style="width: 300px;" aria-labelledby="dropdownMenuButton">
+                                <div class="container mt-4">
+                                    <div class="property_types"/>
+                                    <div class="dropdown-divider mt-5"></div>
+                                    <button type="button" id="apply" class="btn btn-primary apply">Aplicar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dropdown ml-2 d-none d-lg-block">
+                            <button class="btn btn-secondary d-none d-lg-block" type="button" id="more_filters" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Más filtros
+                            </button>
+                            <div class="modal fade" id="more_filters_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Más filtros</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4 class="mt-4">Generales</h4>
+                                            <div class="row">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Búsqueda general</label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="text" class="form-control" id="search" name="search" aria-label="Ingresa un ID o título" placeholder="Ingresa un ID o título"/>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Recámaras</label>
+                                                </div>
+                                                <div class="col">
+                                                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active bed_actions" id="" data-toggle="pill" href="#" role="tab" aria-controls="pills-home" aria-selected="true">Cualquiera</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link bed_actions" id="1" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">1</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link bed_actions" id="2" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">2</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link bed_actions" id="3" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">3</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link bed_actions" id="4" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">4</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link bed_actions" id="5" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">5+</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Baños</label>
+                                                </div>
+                                                <div class="col">
+                                                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active bath_actions" id="" data-toggle="pill" href="#" role="tab" aria-controls="pills-home" aria-selected="true">Cualquiera</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link bath_actions" id="1" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">1</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link bath_actions" id="2" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">2</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link bath_actions" id="3" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">3</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link bath_actions" id="4" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">4</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link bath_actions" id="5" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">5+</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Estacionamientos</label>
+                                                </div>
+                                                <div class="col">
+                                                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active park_actions" id="" data-toggle="pill" href="#" role="tab" aria-controls="pills-home" aria-selected="true">Cualquiera</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link park_actions" id="1" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">1</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link park_actions" id="2" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">2</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link park_actions" id="3" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">3</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link park_actions" id="4" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">4</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link park_actions" id="5" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">5+</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Construcción</label>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="construction_from" placeholder="Desde" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">m²</span>
+                                                        </div>
+                                                        <input type="text" class="form-control ml-1" id="construction_to" placeholder="Hasta" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">m²</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Terreno</label>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="land_from" placeholder="Desde" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">m²</span>
+                                                        </div>
+                                                        <input type="text" class="form-control ml-1" id="land_to" placeholder="Hasta" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">m²</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Uso del suelo</label>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="row" id="land_use">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Propiedad de inversión</label>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="row" id="investment">
+                                                            <div class="col-6">
+                                                                <div class="form-check m-2">
+                                                                    <input type="checkbox" class="form-check-input investment_property_checks" id="y"/>
+                                                                    <label class="form-check-label" for="exampleCheck1">SI</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-check m-2">
+                                                                    <input type="checkbox" class="form-check-input investment_property_checks" id="n"/>
+                                                                    <label class="form-check-label" for="exampleCheck1">NO</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Comparte comisión</label>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="row" id="commission_share">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="mt-4">Caracteristicas del desarrollo</h4>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Servicios</label>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="row" id="development_services">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Atributos</label>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="row" id="development_atributos">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Amenidades</label>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="row" id="development_amenidades">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="mt-4">Caracteristicas de la propiedad</h4>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Servicios</label>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="row" id="property_services">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Tipo de entrega</label>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="row" id="property_tipo_entrega">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-3 text-right">
+                                                    <label for="name" class="mt-2">Atributos</label>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="row" id="property_atributos">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="mt-4">Políticas</h4>
+                                            <span class="mt-4 ml-4">Mascota</span>
+                                            <div class="row mt-0 pt-0">
+                                                <div class="col-2 text-right">
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="pets"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="mt-4 ml-4">Forma de pago</span>
+                                            <div class="row mt-0 pt-0">
+                                                <div class="col-2 text-right">
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="payment_methods"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="mt-4 ml-4">Factura</span>
+                                            <div class="row mt-0 pt-0">
+                                                <div class="col-2 text-right">
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="invoices"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="mt-4">Condiciones</h4>
+                                            <span class="mt-4 ml-4">Garantía</span>
+                                            <div class="row mt-0 pt-0">
+                                                <div class="col-2 text-right">
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="warranty"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="mt-4 ml-4">Depósitos</span>
+                                            <div class="row mt-0 pt-0">
+                                                <div class="col-2 text-right">
+                                                </div>
+                                                <div class="col">
+                                                    <div class="input-group">
+                                                        <div class="deposits"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" id="more_filters_modal_close" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="button" id="apply" class="btn btn-primary apply">Aplicar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" onclick="location.reload(); return false;" class="m-2 d-none d-lg-block" data-toggle="tooltip" title="Limpiar filtros">Limpiar filtros</a>
+                        <button class="btn btn-link d-none d-md-block d-block d-lg-none ml-4" type="button" id="filters" aria-expanded="false" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Filtros
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div>
+                <div class="col-12 mt-2 mx-auto g-3 p-0 m-0">
+                    <div class="row p-8" id="sort">
+                        <div class="col-9"/>
+                        <div class="col-2" style="float: right;">
+                            <div class="dropdown ml-2 d-none d-lg-block">
+                                <button class="btn btn-secondary dropdown-toggle operation_action" type="button" id="operation_action" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Ordenar
+                                </button>
+                                <div class="dropdown-menu" style="width: 300px;" aria-labelledby="dropdownMenuButton">
+                                    <div class="container mt-4">
+                                        <form>
+                                            <label>
+                                                <input type="radio" name="order_by" value="creation_recent"> Creación: más reciente</input>
+                                            </label>
+                                            <br/>
+                                            <label>
+                                                <input type="radio" name="order_by" value="creation_ancient"> Creación: más antigua</input>
+                                            </label>
+                                            <br/>
+                                            <label>
+                                                <input type="radio" name="order_by" value="update_recent"> Actualización: más reciente</input>
+                                            </label>
+                                            <br/>
+                                            <label>
+                                                <input type="radio" name="order_by" value="update_ancient"> Actualización: más antigua</input>
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="order_by" value="greater_price"> Mayor precio </input>
+                                            </label>
+                                            <br/>
+                                            <label>
+                                                <input type="radio" name="order_by" value="lower_price"> Menor precio</input>
+                                            </label>
+                                            <br/>
+                                            <label>
+                                                <input type="radio" name="order_by" value="down_price"> Bajaron de precio</input>
+                                            </label>
+                                        </form>
+                                    </div>
+                                    <div class="dropdown-divider mt-5"></div>
+                                    <button type="button" id="apply" class="btn btn-primary apply ml-2">Aplicar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1"/>
+                    </div>
+                    <div class="row p-2 justify-content-center" id="properties">
+                    </div>
+                    <div class="row p-2 d-none" id="filters_md">
+                    <div class="row">
+                        <div class="col-2"/>
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-12 m-3">
+                                        <h3>Ubicación</h3>
+                                        <select id="states" style="width: 300px;" multiple="multiple"></select>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-12 m-3">
+                                        <h3>Estatus</h3>
+                                        <div class="status"/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-12 m-3">
+                                        <h3>Disponibilidad</h3>
+                                        <div class="availability"/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-12 m-3">
+                                        <h3>Operación</h3>
+                                        <ul class="nav nav-pills m-4" id="pills-tab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link operation_actions" id="Venta" data-toggle="pill" href="#" role="tab" aria-controls="pills-home" aria-selected="true">Venta</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link operation_actions" id="Renta" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">Renta</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link operation_actions" id="Preventa" data-toggle="pill" href="#" role="tab" aria-controls="pills-contact" aria-selected="false">Preventa</a>
+                                            </li>
+                                        </ul>
+                                        <h4>Precio</h4>
+                                        <form class="mt-2">
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" id="min_price" placeholder="Mínimo" aria-label="Mínimo" aria-describedby="basic-addon1"/>
+                                                <input type="text" class="form-control ml-2" id="max_price" placeholder="Máximo" aria-label="Máximo" aria-describedby="basic-addon1"/>
+                                                <select id="currencies" class="custom-select ml-1 currencies"></select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-12 m-3">
+                                        <h3>Tipo de propiedad</h3>
+                                        <div class="property_types"/>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-12 m-3">
+                                        <button type="button" id="close_filter" class="btn btn-secondary ml-2">Cerrar</button>
+                                        <button type="button" id="apply" class="btn btn-primary apply ml-2">Aplicar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2"/>
+                    </div>
+                    <nav aria-label="Page navigation pagination" id="pagination">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" data-page="1">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><button type="button" class="btn page-link apply" data-page="1">1</button></li>
+                            
+                            <li class="page-item" data-page="2">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="myModal" 
+            style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.7); text-align:center; padding-top:100px;">
+        
+            <span class="close" 
+                    style="position:absolute; top:20px; right:35px; color:white; font-size:40px; cursor:pointer;"><i class="fa fa-times" aria-hidden="true"></i></span>
+        
+            <div id="modalContent" 
+                style="background:white; display:inline-block; padding:20px; border-radius:10px; min-width: 600px;max-width: 1000px;width: 800px;height: 600px;text-align: left;overflow: hidden;">
+                <h3 id="modalTitle" style="margin-top:15px;"></h3>
+                <p id="modalDescription"></p>
+                <div class="modal_images"></div>
+            </div>
+        </div>
+
+
+        <script>
+            $(document).ready(function() {
+                $('#states').select2({
+                    placeholder: 'Estado, municipio, colonia o desarrollo',
+                    allowClear: true,
+                    minimumInputLength: 1,
+                    theme: "classic"
+                });
+
+                $('#statess').select2({
+                    placeholder: 'Estado, municipio, colonia o desarrollo',
+                    allowClear: true,
+                    minimumInputLength: 1,
+                    theme: "classic"
+                });
+
+                $('.nav-pills').on('click', function(e) {
+                    e.stopPropagation(); // Evitar la propagación del evento click
+                });
+
+                $('.operation_actions').on('click', function(e) {
+                    e.preventDefault();
+                    // Eliminar la clase 'active' de todos los nav-links
+                    $('.operation_actions').removeClass('active');
+                    
+                    // Agregar la clase 'active' al enlace clicado
+                    $(this).addClass('active');
+                });
+
+                $('.bed_actions').on('click', function(e) {
+                    e.preventDefault();
+                    // Eliminar la clase 'active' de todos los nav-links
+                    $('.bed_actions').removeClass('active');
+                    
+                    // Agregar la clase 'active' al enlace clicado
+                    $(this).addClass('active');
+                });
+
+                $('.bath_actions').on('click', function(e) {
+                    e.preventDefault();
+                    // Eliminar la clase 'active' de todos los nav-links
+                    $('.bath_actions').removeClass('active');
+                    
+                    // Agregar la clase 'active' al enlace clicado
+                    $(this).addClass('active');
+                });
+
+                $('.park_actions').on('click', function(e) {
+                    e.preventDefault();
+                    // Eliminar la clase 'active' de todos los nav-links
+                    $('.park_actions').removeClass('active');
+                    
+                    // Agregar la clase 'active' al enlace clicado
+                    $(this).addClass('active');
+                });
+
+                $('#more_filters').on('click', function(e) {
+                    $('#more_filters_modal').modal('show');
+                });
+
+                $('#filters').on('click', function(e) {
+                    $('#properties').removeClass('d-none').addClass('d-none');
+                    $('#filters_md').removeClass('d-none');
+                });
+                $('#close_filter').on('click', function(e) {
+                    $('#filters_md').removeClass('d-none').addClass('d-none');
+                    $('#properties').removeClass('d-none');
+                });
+
+            
+                $('#filters_modal_close').on('click', function(e) {
+                    $('#filters_modal').modal('hide');
+                });   
+
+                $('#more_filters_modal_close').on('click', function(e) {
+                    $('#more_filters_modal').modal('hide');
+                });               
+
+                $('#pagination .page-link').click(function(e) {
+                    e.preventDefault(); // Prevenir la acción por defecto (si es un enlace)
+                    
+                    $('#pagination .page-item').removeClass('active');
+                    
+                    $(this).parent().addClass('active');
+                    
+                    var pageNumber = $(this).data('page');
+                }); 
+
+            });
+
+        </script>
+    </t>
+</templates>

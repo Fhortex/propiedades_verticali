@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="property_custom.PropertyImageDropzone" owl="1">
+        <div class="o_property_image_widget">
+            <!-- Dropzone -->
+            <div t-ref="dropzone"
+                 t-att-class="'o_property_image_dropzone' + (state.isDragOver ? ' drag-over' : '')"
+                 t-on-dragover="onDragOver"
+                 t-on-dragleave="onDragLeave"
+                 t-on-drop="onDrop"
+                 t-on-click="onClickDropzone">
+
+                <t t-if="state.isUploading">
+                    <div class="o_property_uploading" style="position:relative;">
+                        <div class="text-center">
+                            <div class="spinner-border" role="status"></div>
+                            <p class="mt-2 fw-semibold text-muted">
+                                Subiendo imágenes... <t t-esc="state.uploadProgress"/>%
+                            </p>
+                        </div>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div class="dropzone-icon">
+                        <i class="fa fa-cloud-upload"></i>
+                    </div>
+                    <div class="dropzone-text">
+                        Arrastra tus imágenes aquí
+                    </div>
+                    <div class="dropzone-hint">
+                        o haz clic para seleccionar archivos (JPG, PNG, WEBP)
+                    </div>
+                </t>
+
+                <input t-ref="fileInput"
+                       type="file"
+                       multiple="multiple"
+                       accept="image/*"
+                       style="display: none;"
+                       t-on-change="onFileChange"/>
+            </div>
+        </div>
+    </t>
+</templates>

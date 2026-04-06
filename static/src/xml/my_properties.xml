@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="property_custom.MyProperties" owl="1">
+        <div class="o_property_web container-fluid bg-light py-4" style="min-height:100vh; overflow-y:auto;">
+            <input type="hidden" id="menu_action"/>
+            <div class="d-flex flex-wrap align-items-center justify-content-start mb-4 gap-3 px-3">
+                <button class="btn btn-gradient-primary shadow-sm" 
+                        t-on-click="openNewPropertyForm">
+                    <i class="fa fa-plus-circle me-1"></i> Nueva Propiedad
+                </button>
+
+                <!-- 🔹 Filtros principales -->
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary dropdown-toggle" 
+                            data-bs-toggle="dropdown" 
+                            data-bs-auto-close="outside">
+                        <i class="fa fa-map-marker-alt me-1"></i> Ubicación
+                    </button>
+                    <div class="dropdown-menu p-3 shadow-lg border-0 rounded-lg">
+                        <!-- <select id="statess" class="form-select w-100 mb-3" multiple></select> -->
+                        <button class="btn btn-primary w-100 apply" t-on-click.stop="applyFilters">Aplicar</button>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary dropdown-toggle" 
+                            data-bs-toggle="dropdown" 
+                            data-bs-auto-close="outside">
+                        <i class="fa fa-tasks me-1"></i> Estatus
+                    </button>
+                    <div class="dropdown-menu p-3 shadow-lg border-0 rounded-lg">
+                         <t t-foreach="state.statusOptions" t-as="item" t-key="item.id">
+                            <div class="form-check mb-2">
+                                <input type="checkbox" 
+                                        class="form-check-input"
+                                        t-att-id="`status_${item.id}`"
+                                        t-att-checked="isStatusSelected(item.id)"
+                                        t-on-change="() => this.toggleStatus(item.id)"/>
+                                <label class="form-check-label" 
+                                        t-att-for="`status_${item.id}`"
+                                        t-esc="item.name"/>
+                            </div>
+                        </t>
+                        <button class="btn btn-primary w-100 mt-3 apply" t-on-click.stop="applyFilters">Aplicar</button>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary dropdown-toggle" 
+                            data-bs-toggle="dropdown" 
+                            data-bs-auto-close="outside">
+                        <i class="fa fa-calendar-check me-1"></i> Disponibilidad
+                    </button>
+                    <div class="dropdown-menu p-3 shadow-lg border-0 rounded-lg">
+                        <!-- <div class="availability"></div> -->
+                        <div class="card-body availability">
+                            <!-- ✅ Los checkboxes se crean automáticamente del estado -->
+                            <t t-foreach="state.availabilityOptions" t-as="item" t-key="item.id">
+                                <div class="form-check mb-2">
+                                    <input type="checkbox" 
+                                           class="form-check-input"
+                                           t-att-id="`avail_${item.id}`"
+                                           t-att-checked="isAvailabilitySelected(item.id)"
+                                           t-on-change="() => this.toggleAvailability(item.id)"/>
+                                    <label class="form-check-label" 
+                                           t-att-for="`avail_${item.id}`"
+                                           t-esc="item.name"/>
+                                </div>
+                            </t>
+                            
+                            <!-- Mensaje si no hay opciones -->
+                            <t t-if="state.availabilityOptions.length === 0">
+                                <p class="text-muted small">No hay opciones</p>
+                            </t>
+                        </div>
+                        <button class="btn btn-primary w-100 mt-3 apply" t-on-click.stop="applyFilters">Aplicar</button>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary dropdown-toggle" 
+                            data-bs-toggle="dropdown" 
+                            data-bs-auto-close="outside">
+                        <i class="fa fa-exchange-alt me-1"></i> Operación
+                    </button>
+                    <div class="dropdown-menu p-4 shadow-lg border-0 rounded-lg" style="min-width:340px;">
+                        <ul class="nav nav-pills mb-3" id="operation_tabs">
+                            <li class="nav-item">
+                                <a class="nav-link operation_actions" 
+                                   t-att-class="state.selectedOperation === 'Venta' ? 'active' : ''"
+                                   role="button"
+                                   t-on-click.prevent="() => this.selectOperation('Venta')">
+                                    <i class="fa fa-tag me-2"></i>Venta
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link operation_actions"
+                                   t-att-class="state.selectedOperation === 'Renta' ? 'active' : ''"
+                                   role="button"
+                                   t-on-click.prevent="() => this.selectOperation('Renta')">
+                                    <i class="fa fa-home me-2"></i>Renta
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link operation_actions"
+                                   t-att-class="state.selectedOperation === 'Preventa' ? 'active' : ''"
+                                   role="button"
+                                   t-on-click.prevent="() => this.selectOperation('Preventa')">
+                                    <i class="fa fa-tag me-2"></i>Preventa
+                                </a>
+                            </li>
+                        </ul>
+
+                        <h6 class="fw-bold mt-3">Precio</h6>
+                        <div class="input-group mb-3">
+                            <input type="number" 
+                                   class="form-control" 
+                                   placeholder="Mínimo"
+                                   t-model="state.minPrice"
+                                   t-on-input="(ev) => this.state.minPrice = ev.target.value"/>
+                            <input type="number" 
+                                   class="form-control ms-2" 
+                                   placeholder="Máximo"
+                                   t-model="state.maxPrice"
+                                   t-on-input="(ev) => this.state.maxPrice = ev.target.value"/>
+                            <select class="form-select ms-2" 
+                                    t-att-value="state.currency"
+                                    t-on-change="onCurrencyChange">
+                                <option value="">Moneda</option>
+                                <t t-foreach="state.currencyOptions" t-as="curr" t-key="curr.id">
+                                    <option t-att-value="curr.id" 
+                                            t-att-selected="state.currency == curr.id">
+                                        <t t-esc="curr.name"/> (<t t-esc="curr.symbol"/>)
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary w-100 apply" t-on-click.stop="applyFilters">Aplicar</button>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary dropdown-toggle" 
+                            data-bs-toggle="dropdown" 
+                            data-bs-auto-close="outside">
+                        <i class="fa fa-building me-1"></i> Tipo de Propiedad
+                    </button>
+                    <div class="dropdown-menu p-3 shadow-lg border-0 rounded-lg">
+                        <t t-foreach="state.propertyTypeOptions" t-as="item" t-key="item.id">
+                            <div class="form-check mb-2">
+                                <input type="checkbox" 
+                                        class="form-check-input"
+                                        t-att-id="`type_${item.id}`"
+                                        t-att-checked="isPropertyTypeSelected(item.id)"
+                                        t-on-change="() => this.togglePropertyType(item.id)"/>
+                                <label class="form-check-label" 
+                                        t-att-for="`type_${item.id}`"
+                                        t-esc="item.name"/>
+                            </div>
+                        </t>
+                        <button class="btn btn-primary w-100 mt-3 apply" t-on-click.stop="applyFilters">Aplicar</button>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary" 
+                            data-bs-toggle="modal" data-bs-target="#more_filters_modal"
+                            data-bs-auto-close="outside">
+                        <i class="fa fa-sliders-h me-1"></i> Más filtros
+                    </button>
+                </div>
+
+                <!-- <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#more_filters_modal">
+                    <i class="fa fa-sliders-h me-1"></i> Más filtros
+                </button> -->
+
+                <div class="modal fade" id="more_filters_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Más filtros</h5>
+                            </div>
+                            <div class="modal-body">
+                                <h4 class="mt-4">Generales</h4>
+                                <div class="row">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Búsqueda general</label>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="search" name="search" aria-label="Ingresa un ID o título" placeholder="Ingresa un ID o título"/>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Recámaras</label>
+                                    </div>
+                                    <div class="col">
+                                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active bed_actions" id="" data-toggle="pill" href="#" role="tab" aria-controls="pills-home" aria-selected="true">Cualquiera</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link bed_actions" id="1" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">1</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link bed_actions" id="2" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">2</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link bed_actions" id="3" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">3</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link bed_actions" id="4" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">4</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link bed_actions" id="5" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">5+</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Baños</label>
+                                    </div>
+                                    <div class="col">
+                                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active bath_actions" id="" data-toggle="pill" href="#" role="tab" aria-controls="pills-home" aria-selected="true">Cualquiera</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link bath_actions" id="1" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">1</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link bath_actions" id="2" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">2</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link bath_actions" id="3" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">3</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link bath_actions" id="4" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">4</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link bath_actions" id="5" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">5+</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Estacionamientos</label>
+                                    </div>
+                                    <div class="col">
+                                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active park_actions" id="" data-toggle="pill" href="#" role="tab" aria-controls="pills-home" aria-selected="true">Cualquiera</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link park_actions" id="1" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">1</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link park_actions" id="2" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">2</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link park_actions" id="3" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">3</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link park_actions" id="4" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">4</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link park_actions" id="5" data-toggle="pill" href="#" role="tab" aria-controls="pills-profile" aria-selected="false">5+</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Construcción</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="construction_from" placeholder="Desde" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon2">m²</span>
+                                            </div>
+                                            <input type="text" class="form-control ml-1" id="construction_to" placeholder="Hasta" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon2">m²</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Terreno</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="land_from" placeholder="Desde" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon2">m²</span>
+                                            </div>
+                                            <input type="text" class="form-control ml-1" id="land_to" placeholder="Hasta" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="basic-addon2">m²</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Uso del suelo</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="row" id="land_use">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Propiedad de inversión</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="row" id="investment">
+                                                <div class="col-6">
+                                                    <div class="form-check m-2">
+                                                        <input type="checkbox" class="form-check-input investment_property_checks" id="y"/>
+                                                        <label class="form-check-label" for="exampleCheck1">SI</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-check m-2">
+                                                        <input type="checkbox" class="form-check-input investment_property_checks" id="n"/>
+                                                        <label class="form-check-label" for="exampleCheck1">NO</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Comparte comisión</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="row" id="commission_share">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="mt-4">Caracteristicas del desarrollo</h4>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Servicios</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="row" id="development_services">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Atributos</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="row" id="development_atributos">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Amenidades</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="row" id="development_amenidades">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="mt-4">Caracteristicas de la propiedad</h4>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Servicios</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="row" id="property_services">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Tipo de entrega</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="row" id="property_tipo_entrega">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-3 text-right">
+                                        <label for="name" class="mt-2">Atributos</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="row" id="property_atributos">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="mt-4">Políticas</h4>
+                                <span class="mt-4 ml-4">Mascota</span>
+                                <div class="row mt-0 pt-0">
+                                    <div class="col-2 text-right">
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="pets"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="mt-4 ml-4">Forma de pago</span>
+                                <div class="row mt-0 pt-0">
+                                    <div class="col-2 text-right">
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="payment_methods"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="mt-4 ml-4">Factura</span>
+                                <div class="row mt-0 pt-0">
+                                    <div class="col-2 text-right">
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="invoices"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="mt-4">Condiciones</h4>
+                                <span class="mt-4 ml-4">Garantía</span>
+                                <div class="row mt-0 pt-0">
+                                    <div class="col-2 text-right">
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="warranty"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="mt-4 ml-4">Depósitos</span>
+                                <div class="row mt-0 pt-0">
+                                    <div class="col-2 text-right">
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <div class="deposits"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="more_filters_modal_close" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" id="apply" class="btn btn-primary apply">Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" 
+                   t-on-click.prevent="clearAllFilters" 
+                   class="text-decoration-none text-muted ms-auto d-none d-lg-block" 
+                   data-bs-toggle="tooltip" 
+                   title="Limpiar filtros">
+                    <i class="fa fa-undo-alt me-1"></i> Limpiar filtros
+                </a>
+            </div>
+
+            <!-- Resultados -->
+            <div class="row" style="max-height: 800px; overflow-y: auto; overflow-x: hidden;">
+                
+                <!-- Loading -->
+                <t t-if="state.isLoading">
+                    <div class="col-12 text-center p-5">
+                        <div class="spinner-border text-primary"/>
+                        <p class="mt-2">Cargando propiedades...</p>
+                    </div>
+                </t>
+                
+                <!-- Propiedades -->
+                <t t-else="">
+                    <t t-foreach="state.properties" t-as="prop" t-key="prop.id">
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <img t-att-data-id="prop.id" 
+                                     class="d-block w-100 card-header p-0 m-0" 
+                                     t-att-src="prop.image" 
+                                     t-att-alt="prop.name" 
+                                     style="width: 100%;height:300px;object-fit: cover;"/>
+                                <div class="card-body">
+                                    <h5 class="card-title" t-esc="prop.id_eb"/>
+                                    <a href="#" 
+                                       t-on-click.prevent="() => this.openPropertyDetail(prop.id)"
+                                       class="m-1" 
+                                       style="display: inline-block;max-width: 100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis; cursor: pointer;">
+                                        <t t-esc="prop.title"/>
+                                    </a>
+                                    
+                                    <p class="card-text m-1"><strong><t t-esc="prop.symbol"/> <t t-esc="prop.price"/></strong> En <t t-esc="prop.type_ope"/></p>
+                                    <p class="card-text m-1" style="display: inline-block;max-width: 100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"><t t-esc="prop.description"/></p>
+                                    <div class="m-1">
+                                        <i class="fa fa-bed me-1"/>
+                                        <span class="me-1"><t t-esc="prop.bedrooms"/> </span>
+                                        <i class="fa fa-bath me-1"/>
+                                        <span class="me-1"><t t-esc="prop.bathrooms"/> </span>
+                                        <i class="fa fa-car me-1"/>
+                                        <span class="me-1"><t t-esc="prop.parking_lot"/> </span>
+                                        <i class="fa fa-cube me-1"/>
+                                        <span class="me-1"><t t-esc="prop.constructions"/> m²</span>
+                                        <i class="fa fa-expand me-1"/>
+                                        <span><t t-esc="prop.lans"/> <t t-esc="prop.lans_uom_id"/></span>
+                                    </div>
+                                    <div class="mt-2">
+                                        <i class="fa fa-key me-1"/>
+                                        <span><t t-esc="prop.adviser"/></span>
+                                    </div>
+
+                                    <strong>Estatus: </strong><span><t t-esc="prop.status"/></span><br/>
+                                    <strong>Disponibilidad: </strong><span><t t-esc="prop.availability"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

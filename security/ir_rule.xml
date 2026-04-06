@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="restrict_customers" model="ir.rule">
+        <field name="name">Restringir acceso a clientes</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">['|',('is_ct_owner','=',True),'|',('is_ct_adviser','=',True),('is_unassigned','=',True)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="restrict_allcustomers" model="ir.rule">
+        <field name="name">Ver clientes</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+    <!-- Propiedades: usuarios normales solo ven lo propio o donde son asesores -->
+    <record id="rule_property_personal" model="ir.rule">
+        <field name="name">Propiedades: Solo mis registros o asesor</field>
+        <field name="model_id" ref="model_verticali_property"/>
+        <field name="domain_force">['|', ('create_uid', '=', user.id), ('adviser_id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Propiedades: Gerentes de ventas ven todo -->
+    <record id="rule_property_admin" model="ir.rule">
+        <field name="name">Propiedades: Ver todos (Admin)</field>
+        <field name="model_id" ref="model_verticali_property"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_manager'))]"/>
+    </record>
+</odoo>
+

@@ -1,0 +1,32 @@
+<odoo>
+  <data>    
+    <record model="ir.ui.view" id="view_property_land_use_tree">
+      <field name="model">property.land.use</field>
+      <field name="arch" type="xml">
+        <list string="Uso del suelo" editable="bottom">
+          <field name="name"/>
+        </list>
+      </field>
+    </record>
+
+
+  <record id="property_land_use_action" model="ir.actions.act_window">
+    <field name="name">Uso de la propiedad</field>
+    <field name="res_model">property.land.use</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="view_property_land_use_tree"/>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Agregar un uso de la propiedad
+      </p>
+    </field>
+  </record>
+    
+  <menuitem
+    id="menu_property_land_use_act"
+    name="Uso del suelo"
+    sequence="20"
+    parent="menu_property_config"
+    action="property_land_use_action"/>
+  </data>
+</odoo>

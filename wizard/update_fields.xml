@@ -1,0 +1,27 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_property_update_fields">
+      <field name="model">property.update.fields</field>
+      <field name="arch" type="xml">
+        <form>
+            <p>Mediante este asistente usted podrá actualizar los campos seleccionados en el modelo y la vista de propiedades.</p>
+            <footer>
+                <button type="object" class="btn-primary" name="apply" string="Aplicar"/>
+                <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+            </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_property_update_fields" model="ir.actions.act_window">
+        <field name="name">Actualizar campos</field>
+        <field name="res_model">property.update.fields</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context" eval="{}"/>
+        <field name="binding_model_id" ref="property_custom.model_property_fields"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+  </data>
+</odoo>

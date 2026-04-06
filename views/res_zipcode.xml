@@ -1,0 +1,33 @@
+<odoo>
+  <data>    
+    <record model="ir.ui.view" id="view_res_zipcode_tree">
+      <field name="model">res.zipcode</field>
+      <field name="arch" type="xml">
+        <list string="Unidad de negocio" editable="bottom">
+          <field name="name"/>
+          <field name="municipality_id"/>
+        </list>
+      </field>
+    </record>
+
+
+  <record id="res_zipcode_action" model="ir.actions.act_window">
+    <field name="name">Código postal</field>
+    <field name="res_model">res.zipcode</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="view_res_zipcode_tree"/>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Agregar una código postal
+      </p>
+    </field>
+  </record>
+    
+  <menuitem
+    id="menu_res_zipcode_act"
+    name="Código postal"
+    sequence="91"
+    parent="menu_property_config"
+    action="res_zipcode_action"/>
+  </data>
+</odoo>

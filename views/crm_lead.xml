@@ -1,0 +1,14 @@
+<odoo>
+  <data>    
+    <record id="inherit_view_id_property_crm_lead" model="ir.ui.view">
+      <field name="name">crm.lead.view.form.inherit</field>
+      <field name="model">crm.lead</field>
+      <field name="inherit_id" ref="crm_verticali.view_lead_verticali_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='property_identifier']" position="after">
+          <field name="property" widget="selection"/>
+        </xpath>
+      </field>
+    </record>
+    </data>
+</odoo>

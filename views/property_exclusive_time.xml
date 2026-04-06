@@ -1,0 +1,32 @@
+<odoo>
+  <data>    
+    <record model="ir.ui.view" id="view_property_exclusive_time_tree">
+      <field name="model">property.exclusive.time</field>
+      <field name="arch" type="xml">
+        <list string="Tiempo de exclusiva" editable="bottom">
+          <field name="name"/>
+        </list>
+      </field>
+    </record>
+
+
+  <record id="property_exclusive_time_action" model="ir.actions.act_window">
+    <field name="name">Tiempo de exclusiva</field>
+    <field name="res_model">property.exclusive.time</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="view_property_exclusive_time_tree"/>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Agregar un tiempo de exclusiva
+      </p>
+    </field>
+  </record>
+    
+  <menuitem
+    id="menu_property_exclusive_time_act"
+    name="Tiempo de exclusiva"
+    sequence="70"
+    parent="menu_property_config"
+    action="property_exclusive_time_action"/>
+  </data>
+</odoo>

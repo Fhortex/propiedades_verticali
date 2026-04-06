@@ -1,0 +1,36 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_property_report">
+      <field name="model">property.report</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <field name="property_id" invisible="1"/>
+            <field name="title"/>
+            <field name="description" />
+            <field name="user_id"/>
+            <!-- <field name="show_investment"/> -->
+          </group>
+            <field name="image_ids" domain="[('property_id','=',property_id)]">
+              <list>
+                <field name="id" string="Identificador"/>
+                <field name="image" widget="image" class="oe_avatar" string="Imagen"/>
+              </list>
+            </field>
+            <footer>
+                <button string="Imprimir" class="btn-primary" type="object" name="print_report"/>
+                <button string="Cerrar" class="btn-secondary" special="cancel" data-hotkey="x"/>
+            </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_property_report" model="ir.actions.act_window">
+        <field name="name">Ficha técnica</field>
+        <field name="res_model">property.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>
